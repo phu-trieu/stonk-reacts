@@ -1,4 +1,9 @@
+const path = require('path');
+
+const publicPath = path.join(__dirname, 'dist')
+
 module.exports = {
+  mode: "production",
   resolve: {
     extensions: ['.js', '.jsx']
   },
@@ -16,5 +21,12 @@ module.exports = {
         }
       }
     ]
+  },
+  devServer: {
+    contentBase: publicPath,
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    stats: 'minimal',
+    watchContentBase: true
   }
 };
