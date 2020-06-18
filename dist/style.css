@@ -26,3 +26,33 @@ body {
 .header-text-sizing {
   width: 97%;
 }
+
+.form-border {
+  border-radius: 30px;
+}
+
+.label-size {
+  font-size: 190%;
+}
+
+.input-size {
+  width: 90%;
+}
+
+@media all and (min-width: 720px) and (max-width: 959px) {
+  .input-size {
+    width: 50%;
+  }
+}
+
+@media all and (min-width: 960px) and (max-width: 1139px) {
+  .input-size {
+    width: 45%;
+  }
+}
+
+@media all and (min-width: 1140px) {
+  .input-size {
+    width: 35%;
+  }
+}

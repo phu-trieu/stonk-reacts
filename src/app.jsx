@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './header';
-
+import Homepage from './homepage';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +12,10 @@ class App extends Component {
 
   render() {
     return (
-      <Header />
+      <div>
+        <Header />
+        <Homepage />
+      </div>
     )
   }
 }
