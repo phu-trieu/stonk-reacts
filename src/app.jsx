@@ -27,7 +27,7 @@ class App extends Component {
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif}/>
     }
-    return <h3>Loading...</h3>
+    return <h2 className="text-center pt-5">Loading...</h2>
   }
 
   render() {
