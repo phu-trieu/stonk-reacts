@@ -14,7 +14,7 @@ class Homepage extends Component {
         <form action="" className="">
           <div className="form-group d-flex flex-wrap justify-content-center pt-5">
             <div className="col-12 d-flex justify-content-center">
-              <label htmlFor="search" className="label-size text-center">Search for a company</label>
+              <label htmlFor="search" className="label-size text-center">Search for a NYSE company</label>
             </div>
             <div className="col-12 d-flex justify-content-center">
               <input id="search" className="form-control form-border input-size" type="text" placeholder="e.g. SNAP" />

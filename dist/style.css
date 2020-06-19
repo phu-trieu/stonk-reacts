@@ -84,3 +84,21 @@ body {
     width: 50%;
   }
 }
+
+@media all and (min-width:391px) and (max-width: 420px) {
+  .label-size {
+    font-size: 175%;
+  }
+}
+
+@media all and (min-width: 360px) and (max-width: 390px) {
+  .label-size {
+    font-size: 160%;
+  }
+}
+
+@media all and (min-width: 0px) and (max-width: 359px) {
+  .label-size {
+    font-size: 145%;
+  }
+}
