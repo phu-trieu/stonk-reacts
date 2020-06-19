@@ -71,6 +71,16 @@ body {
   font-weight: normal;
 }
 
+.mobile-header-text {
+  font-size: default;
+}
+
+@media all and (max-width: 302px) {
+  .mobile-header-text {
+    font-size: 150%;
+  }
+}
+
 @media all and (max-width: 575px) {
   .mobile-bold {
     font-weight: bold;

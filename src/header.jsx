@@ -12,7 +12,7 @@ class Header extends Component {
         <div className="d-flex justify-content-between header-text-sizing m-auto">
           <div className="d-flex">
             <img className="logo mr-1" src="./images/trending_up-white-18dp.svg" alt=""/>
-            <h2 className="my-auto">Stonk Reacts</h2>
+            <h2 className="my-auto mobile-header-text">Stonk Reacts</h2>
           </div>
           <div>
             <img className="menu" src="/images/menu-white-18dp.svg" alt=""/>
