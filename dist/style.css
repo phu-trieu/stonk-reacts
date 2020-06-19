@@ -93,12 +93,12 @@ body {
 
 @media all and (min-width: 360px) and (max-width: 390px) {
   .label-size {
-    font-size: 160%;
+    font-size: 150%;
   }
 }
 
 @media all and (min-width: 0px) and (max-width: 359px) {
   .label-size {
-    font-size: 145%;
+    font-size: 125%;
   }
 }

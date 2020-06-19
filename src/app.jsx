@@ -8,8 +8,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      homepageGif: null
+      homepageGif: null,
+      searchBar: null
     }
+    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
@@ -23,9 +25,16 @@ class App extends Component {
       })
   }
 
+  search(searchQuery) {
+    this.setState({
+      searchBar: searchQuery
+    })
+    event.preventDefault();
+  }
+
   checkState() {
     if (this.state.homepageGif) {
-      return <Homepage gif={this.state.homepageGif}/>
+      return <Homepage gif={this.state.homepageGif} search={this.search}/>
     }
     return <h2 className="text-center pt-5">Loading...</h2>
   }
