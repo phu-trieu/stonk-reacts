@@ -11,7 +11,6 @@ class SearchResultList extends Component {
     const searchResults = this.props.searchResults
     return (
       <div>
-        {/* <h1 className="search-result-LI mx-auto mt-3 text-left">Stocks</h1> */}
         <div className="mobile-switch">
           <div className="d-flex justify-content-between pt-3 search-result-LI m-auto">
             <div className="d-flex search-result-symbol justify-content-between row">
@@ -33,6 +32,7 @@ class SearchResultList extends Component {
                 symbol={searchResult.symbol}
                 stockEx={searchResult.stock_exchange_short}
                 price={searchResult.price}
+                stockDetails={this.props.stockDetails}
               />
             )
           })

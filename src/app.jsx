@@ -45,9 +45,11 @@ class App extends Component {
           stock_exchange_short: "FRX",
           symbol: "SPU.F"
         }
-      ]
+      ],
+      stockDetails: null
     }
     this.formSubmit = this.formSubmit.bind(this);
+    this.stockDetails = this.stockDetails.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +61,12 @@ class App extends Component {
           homepageGif: data
         })
       })
+  }
+
+  stockDetails(symbol) {
+    this.setState({
+      stockDetails: symbol
+    })
   }
 
   formSubmit(searchQuery) {
@@ -77,7 +85,7 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} />
+    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }
