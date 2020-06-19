@@ -43,6 +43,89 @@ body {
   width: 90%;
 }
 
+.search-result-LI {
+  width: 95%;
+}
+
+.search-result-symbol {
+  width: 80%;
+}
+
+.stock-ex-header {
+  width: initial;
+}
+
+.mobile-switch {
+  display: initial;
+}
+
+.hr-mobile-switch {
+  display: block;
+}
+
+.thicc-border {
+  border: 3px solid white;
+}
+
+.mobile-bold {
+  font-weight: normal;
+}
+
+.mobile-header-text {
+  font-size: default;
+}
+
+@media all and (max-width: 302px) {
+  .mobile-header-text {
+    font-size: 150%;
+  }
+}
+
+@media all and (max-width: 575px) {
+  .mobile-bold {
+    font-weight: bold;
+  }
+}
+
+@media all and (min-width: 576px) and (max-width: 740px) {
+  .stock-ex-header {
+    width: 110%;
+  }
+}
+
+@media all and (max-width: 575px) {
+  .hr-mobile-switch {
+    display: none;
+  }
+  .mobile-switch {
+    display: none;
+  }
+}
+
+@media all and (min-width: 740px) and (max-width: 949px) {
+  .search-result-symbol {
+    width: 70%;
+  }
+}
+
+@media all and (min-width: 950px) and (max-width: 1249px) {
+  .search-result-symbol {
+    width: 60%;
+  }
+}
+
+@media all and (min-width: 1250px) {
+  .search-result-symbol {
+    width: 50%;
+  }
+}
+
+@media all and (min-width: 720px) and (max-width: 959px) {
+  .search-result-LI {
+    width: 95%;
+  }
+}
+
 @media all and (min-width: 720px) and (max-width: 959px) {
   .input-size {
     width: 50%;
@@ -82,5 +165,23 @@ body {
 @media all and (min-width: 1140px) {
   .stonks-gif {
     width: 50%;
+  }
+}
+
+@media all and (min-width:391px) and (max-width: 420px) {
+  .label-size {
+    font-size: 175%;
+  }
+}
+
+@media all and (min-width: 360px) and (max-width: 390px) {
+  .label-size {
+    font-size: 150%;
+  }
+}
+
+@media all and (min-width: 0px) and (max-width: 359px) {
+  .label-size {
+    font-size: 125%;
   }
 }

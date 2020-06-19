@@ -3,13 +3,53 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './header';
 import Homepage from './homepage';
+import SearchResultList from './search-result-list';
+import SearchResultListItem from './search-result-list-item';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      homepageGif: null
+      homepageGif: null,
+      searchBar: null,
+      searchResults: [
+        {
+          currency: "EUR",
+          name: "UpSnap Inc",
+          price: null,
+          stock_exchange_long: "Frankfurt Stock Exchange",
+          stock_exchange_short: "FRX",
+          symbol: "FCGN.F"
+        },
+        {
+          currency: "USD",
+          name: "Snap-on Incorporated",
+          price: null,
+          stock_exchange_long: "New York Stock Exchange",
+          stock_exchange_short: "NYSE",
+          symbol: "SNA"
+        },
+        {
+          currency: "USD",
+          name: "Snap Inc.",
+          price: null,
+          stock_exchange_long: "New York Stock Exchange",
+          stock_exchange_short: "NYSE",
+          symbol: "SNAP"
+        },
+        {
+          currency: "EUR",
+          name: "Snap-on Incorporated",
+          price: null,
+          stock_exchange_long: "Frankfurt Stock Exchange",
+          stock_exchange_short: "FRX",
+          symbol: "SPU.F"
+        }
+      ],
+      stockDetails: null
     }
+    this.formSubmit = this.formSubmit.bind(this);
+    this.stockDetails = this.stockDetails.bind(this);
   }
 
   componentDidMount() {
@@ -23,9 +63,31 @@ class App extends Component {
       })
   }
 
+  stockDetails(symbol) {
+    this.setState({
+      stockDetails: symbol
+    })
+  }
+
+  formSubmit(searchQuery) {
+    event.preventDefault();
+    this.setState({
+      searchBar: searchQuery
+    })
+    fetch(`https://api.worldtradingdata.com/api/v1/stock_search?search_term=${searchQuery}&limit=50&page=1&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          searchResults: data.data
+        })
+        console.log(data.data)
+      })
+  }
+
   checkState() {
+    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} />
     if (this.state.homepageGif) {
-      return <Homepage gif={this.state.homepageGif}/>
+      return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }
     return <h2 className="text-center pt-5">Loading...</h2>
   }
