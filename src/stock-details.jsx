@@ -68,7 +68,7 @@ class StockDetails extends Component {
 
   getRandomGif() {
     const gif = this.state.gif;
-    const random  = (Math.random() * 24).toFixed(0);
+    const random = (Math.random() * 24).toFixed(0);
     return gif[random].images.fixed_height.url;
   }
 
@@ -86,46 +86,54 @@ class StockDetails extends Component {
     const gif = this.props.gif;
     const details = this.props.details;
     if (!this.state.gif) return <h1>Loading...</h1>
-    if (this.state.gif) {return (
-      <div>
-        <div className="d-flex justify-content-between mt-3 search-result-LI mx-auto">
-          <div>
-            <h1>{details.symbol}</h1>
+    if (this.state.gif) {
+      return (
+        <div>
+          <div className="search-result-LI mx-auto mt-2">
+            <h6>
+              &#8592; Back to results
+            </h6>
           </div>
-          <div className="d-flex">
-            <img src="/images/trending_down-white-18dp.svg" alt="" className="menu"/>
-            <h1 className="ml-1">{this.getPrice()}</h1>
+          <div className="d-flex justify-content-between mt-3 search-result-LI mx-auto">
+            <div>
+              <h1>{details.symbol}</h1>
+            </div>
+            <div className="d-flex">
+              <img src="/images/trending_down-white-18dp.svg" alt="" className="menu" />
+              <h1 className="ml-1">{this.getPrice()}</h1>
+            </div>
+          </div>
+          <div className="search-result-LI d-flex m-auto">
+            <h3>{details.name}</h3>
+          </div>
+          <div className="d-flex justify-content-center my-5">
+            <img className="stonks-gif" src={this.getRandomGif()} alt="" />
+          </div>
+          <div className="search-result-LI m-auto">
+            <div>
+              <h4>Price Open: ${details.price_open}</h4>
+            </div>
+            <div>
+              <h4>Day High: ${details.day_high}</h4>
+            </div>
+            <div>
+              <h4>Day Low: ${details.day_low}</h4>
+            </div>
+            <div>
+              <h4>52 Week High: ${details[`52_week_high`]}</h4>
+            </div>
+            <div>
+              <h4>52 Week Low: ${details[`52_week_low`]}</h4>
+            </div>
+            <div>
+              <h4>Day Change: {this.posNegDayChange()}${details.day_change}</h4>
+            </div>
+            <div>
+              <h4>Change %: {this.posNegDayChange()}{details.change_pct}</h4>
+            </div>
           </div>
         </div>
-        <div className="search-result-LI d-flex m-auto">
-          <h3>{details.name}</h3>
-        </div>
-        <div className="d-flex justify-content-center mt-5">
-          <img className="stonks-gif" src={this.getRandomGif()} alt=""/>
-        </div>
-        <div>
-          <h4>Price Open: ${details.price_open}</h4>
-        </div>
-        <div>
-          <h4>Day High: ${details.day_high}</h4>
-        </div>
-        <div>
-          <h4>Day Low: ${details.day_low}</h4>
-        </div>
-        <div>
-          <h4>52 Week High: ${details[52_week_high]}</h4>
-        </div>
-        <div>
-          <h4>52 Week Low: ${details[52_week_low]}</h4>
-        </div>
-        <div>
-          <h4>Day Change: {this.posNegDayChange()}${details.day_change}</h4>
-        </div>
-        <div>
-          <h4>Change %: {this.posNegDayChange()}{details.change_pct}</h4>
-        </div>
-      </div>
-    )
+      )
     }
   }
 }
