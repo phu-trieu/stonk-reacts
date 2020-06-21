@@ -48,30 +48,30 @@ class App extends Component {
         }
       ],
       stockDetails: {
+        "symbol": "SNAP",
+        "name": "Snap Inc.",
+        "currency": "USD",
+        "price": null,
+        "price_open": null,
+        "day_high": null,
+        "day_low": null,
         "52_week_high": null,
         "52_week_low": null,
-        change_pct: null,
-        close_yesterday: null,
-        currency: "EUR",
-        day_change: null,
-        day_high: null,
-        day_low: null,
-        eps: null,
-        gmt_offset: "3600",
-        last_trade_time: "N/A",
-        market_cap: null,
-        name: "UpSnap Inc",
-        pe: null,
-        price: null,
-        price_open: null,
-        shares: null,
-        stock_exchange_long: "Frankfurt Stock Exchange",
-        stock_exchange_short: "FRX",
-        symbol: "FCGN.F",
-        timezone: "CET",
-        timezone_name: "Europe/Berlin",
-        volume: null,
-        volume_avg: null
+        "day_change": null,
+        "change_pct": null,
+        "close_yesterday": null,
+        "market_cap": null,
+        "volume": null,
+        "volume_avg": null,
+        "shares": null,
+        "stock_exchange_long": "New York Stock Exchange",
+        "stock_exchange_short": "NYSE",
+        "timezone": "EDT",
+        "timezone_name": "America/New_York",
+        "gmt_offset": "-14400",
+        "last_trade_time": "N/A",
+        "pe": null,
+        "eps": null
       },
       stockDetailsGif: null
     }
@@ -94,66 +94,10 @@ class App extends Component {
     fetch(`https://api.worldtradingdata.com/api/v1/stock?symbol=${symbol}&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
       .then(res => res.json())
       .then(stock => {
-        console.log(stock.data)
+        console.log(stock.data[0])
         this.setState({
-          stockDetails: stock.data
+          stockDetails: stock.data[0]
         })
-        const sd = this.state.stockDetails;
-        if (!sd.price) {
-          console.log('henlooo')
-          return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=error&limit=25&offset=0&rating=G&lang=en')
-            .then(res => res.json())
-            .then(gifs => {
-              this.setState({
-                stockDetailsGif: gifs.data
-              })
-            })
-        }
-        if (sd.change_pct < 5) {
-          return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=so so&limit=25&offset=0&rating=G&lang=en')
-            .then(res => res.json())
-            .then(gifs => {
-              this.setState({
-                stockDetailsGif: gifs.data
-              })
-            })
-        }
-        if (sd.change_pct > 5 && sd.change_pct < 20 && sd.price < sd.price_open) {
-          return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=worried&limit=25&offset=0&rating=G&lang=en')
-            .then(res => res.json())
-            .then(gifs => {
-              this.setState({
-                stockDetailsGif: gifs.data
-              })
-            })
-        }
-        if (sd.change_pct > 5 && sd.change_pct < 20 && sd.price > sd.price_open) {
-          return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=looking good&limit=25&offset=0&rating=G&lang=en')
-            .then(res => res.json())
-            .then(gifs => {
-              this.setState({
-                stockDetailsGif: gifs.data
-              })
-            })
-        }
-        if (sd.change_pct > 20 && sd.price < sd.price_open) {
-          return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=building collapse&limit=25&offset=0&rating=G&lang=en')
-            .then(res => res.json())
-            .then(gifs => {
-              this.setState({
-                stockDetailsGif: gifs.data
-              })
-            })
-        }
-        if (sd.change_pct > 20 && sd.price > sd.price_open) {
-          return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=liftoff&limit=25&offset=0&rating=G&lang=en')
-            .then(res => res.json())
-            .then(gifs => {
-              this.setState({
-                stockDetailsGif: gifs.data
-              })
-            })
-        }
       })
   }
 
@@ -173,7 +117,7 @@ class App extends Component {
   }
 
   checkState() {
-    // if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails}/>
+    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} />
     if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
