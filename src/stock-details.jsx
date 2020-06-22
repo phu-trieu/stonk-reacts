@@ -7,6 +7,7 @@ class StockDetails extends Component {
       gif: null
     }
   }
+
   componentDidMount() {
     const gif = this.props.gif;
     const details = this.props.details;
@@ -97,17 +98,37 @@ class StockDetails extends Component {
   }
 
   render() {
-    console.log(this.state.gif)
     const gif = this.props.gif;
     const details = this.props.details;
-    const priceOpen = (details.price_open).toFixed(2);
-    const dayHigh = (details.day_high).toFixed(2);
-    const dayLow = (details.day_low).toFixed(2);
-    const yearHigh = (details[`52_week_high`]).toFixed(2);
-    const yearLow = (details[`52_week_low`]).toFixed(2);
-    const dayChange = (details.day_change).toFixed(2);
-    const changePct = (details.change_pct).toFixed(2);
-    if (!this.state.gif) return <h1>Loading...</h1>
+    const priceOpen = () => {
+      if (details.price_open) return (details.price_open).toFixed(2);
+      return '';
+    };
+    const dayHigh = () => {
+      if (details.day_high) return (details.day_high).toFixed(2);
+      return '';
+    };
+    const dayLow = () => {
+      if (details.day_low) return (details.day_low).toFixed(2);
+      return '';
+    };
+    const yearHigh = () => {
+      if (details[`52_week_high`]) return (details[`52_week_high`]).toFixed(2);
+      return '';
+    };
+    const yearLow = () => {
+      if (details[`52_week_low`]) return (details[`52_week_low`]).toFixed(2);
+      return '';
+    };
+    const dayChange = () => {
+      if (details.day_change) return (details.day_change).toFixed(2);
+      return '';
+    };
+    const changePct = () => {
+      if (details.change_pct) return (details.change_pct).toFixed(2);
+      return '';
+    };
+    if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
     if (this.state.gif) {
       return (
         <div>
@@ -134,27 +155,27 @@ class StockDetails extends Component {
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
             <div className="search-result-LI m-auto">
               <div>
-                <h4>Price Open: ${priceOpen}</h4>
+                <h4 className="detail-text">Price Open: ${priceOpen}</h4>
               </div>
               <div>
-                <h4>Day High: ${dayHigh}</h4>
+                <h4 className="detail-text">Day High: ${dayHigh}</h4>
               </div>
               <div>
-                <h4>Day Low: ${dayLow}</h4>
+                <h4 className="detail-text">Day Low: ${dayLow}</h4>
               </div>
               <div>
-                <h4>52 Week High: ${yearHigh}</h4>
+                <h4 className="detail-text">52 Week High: ${yearHigh}</h4>
               </div>
             </div>
             <div className="search-result-LI m-auto">
               <div className="text-right">
-                <h4>52 Week Low: ${yearLow}</h4>
+                <h4 className="detail-text">52 Week Low: ${yearLow}</h4>
               </div>
               <div className="text-right">
-                <h4>Day Change: {this.posNegDayChange()}${dayChange}</h4>
+                <h4 className="detail-text">Day Change: {this.posNegDayChange()}${dayChange}</h4>
               </div>
               <div className="text-right">
-                <h4>Change %: {this.posNegDayChange()}{changePct}</h4>
+                <h4 className="detail-text">Change %: {this.posNegDayChange()}{changePct}</h4>
               </div>
             </div>
           </div>

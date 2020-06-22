@@ -13,71 +13,14 @@ class App extends Component {
     this.state = {
       homepageGif: null,
       searchBar: null,
-      searchResults: [
-        {
-          currency: "EUR",
-          name: "UpSnap Inc",
-          price: null,
-          stock_exchange_long: "Frankfurt Stock Exchange",
-          stock_exchange_short: "FRX",
-          symbol: "FCGN.F"
-        },
-        {
-          currency: "USD",
-          name: "Snap-on Incorporated",
-          price: null,
-          stock_exchange_long: "New York Stock Exchange",
-          stock_exchange_short: "NYSE",
-          symbol: "SNA"
-        },
-        {
-          currency: "USD",
-          name: "Snap Inc.",
-          price: null,
-          stock_exchange_long: "New York Stock Exchange",
-          stock_exchange_short: "NYSE",
-          symbol: "SNAP"
-        },
-        {
-          currency: "EUR",
-          name: "Snap-on Incorporated",
-          price: null,
-          stock_exchange_long: "Frankfurt Stock Exchange",
-          stock_exchange_short: "FRX",
-          symbol: "SPU.F"
-        }
-      ],
-      stockDetails: {
-        "symbol": "SNAP",
-        "name": "Snap Inc.",
-        "currency": "USD",
-        "price": 24.66,
-        "price_open": 24.00,
-        "day_high": 24.00,
-        "day_low": 21.95,
-        "52_week_high": 25.00,
-        "52_week_low": 7.89,
-        "day_change": 1.34,
-        "change_pct": 20.00,
-        "close_yesterday": null,
-        "market_cap": null,
-        "volume": null,
-        "volume_avg": null,
-        "shares": null,
-        "stock_exchange_long": "New York Stock Exchange",
-        "stock_exchange_short": "NYSE",
-        "timezone": "EDT",
-        "timezone_name": "America/New_York",
-        "gmt_offset": "-14400",
-        "last_trade_time": "N/A",
-        "pe": null,
-        "eps": null
-      },
+      searchResults: null,
+      stockDetails: null,
       stockDetailsGif: null
     }
     this.formSubmit = this.formSubmit.bind(this);
     this.stockDetails = this.stockDetails.bind(this);
     this.backToResults = this.backToResults.bind(this);
+    this.backToHomepage = this.backToHomepage.bind(this);
   }
 
   componentDidMount() {
@@ -95,7 +38,6 @@ class App extends Component {
     fetch(`https://api.worldtradingdata.com/api/v1/stock?symbol=${symbol}&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
       .then(res => res.json())
       .then(stock => {
-        console.log(stock.data[0])
         this.setState({
           stockDetails: stock.data[0]
         })
@@ -106,6 +48,14 @@ class App extends Component {
     this.setState({
       stockDetails: null,
       stockDetailsGif: null
+    })
+  }
+
+  backToHomepage() {
+    this.setState({
+      stockDetails: null,
+      stockDetailsGif: null,
+      searchResults: null
     })
   }
 
@@ -120,7 +70,6 @@ class App extends Component {
         this.setState({
           searchResults: data.data
         })
-        console.log(data.data)
       })
   }
 
@@ -136,7 +85,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header backToHomepage={this.backToHomepage} />
         {this.checkState()}
       </div>
     )
