@@ -106,7 +106,7 @@ body {
 
 @media all and (max-width: 750px) {
   .detail-text {
-    font-size: 100%;
+    font-size: 99%;
   }
 }
 
