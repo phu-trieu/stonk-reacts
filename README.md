@@ -9,6 +9,7 @@ stonk-reacts.phutrieu.com
 * React.js
 * HTML5
 * CSS3
+* JavaScript (ES6)
 * Bootstrap 4
 * Node.js
 * AWS EC2
