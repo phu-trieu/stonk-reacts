@@ -7,6 +7,7 @@ class StockDetails extends Component {
       gif: null
     }
   }
+
   componentDidMount() {
     const gif = this.props.gif;
     const details = this.props.details;
@@ -127,7 +128,7 @@ class StockDetails extends Component {
       if (details.change_pct) return (details.change_pct).toFixed(2);
       return '';
     };
-    if (!this.state.gif) return <h1>Loading...</h1>
+    if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
     if (this.state.gif) {
       return (
         <div>
