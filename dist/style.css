@@ -88,6 +88,34 @@ body {
   width: 66%;
 }
 
+.detail-text {
+  font-size: default;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.translate {
+  transform: translate(0px, 50px);
+}
+
+@media all and (max-width: 750px) {
+  .detail-text {
+    font-size: 100%;
+  }
+}
+
+@media all and (max-width: 750px) {
+  .w-66 {
+    width: 90%;
+  }
+}
+
 @media all and (max-width: 302px) {
   .mobile-header-text {
     font-size: 150%;

@@ -78,6 +78,7 @@ class App extends Component {
     this.formSubmit = this.formSubmit.bind(this);
     this.stockDetails = this.stockDetails.bind(this);
     this.backToResults = this.backToResults.bind(this);
+    this.backToHomepage = this.backToHomepage.bind(this);
   }
 
   componentDidMount() {
@@ -95,7 +96,6 @@ class App extends Component {
     fetch(`https://api.worldtradingdata.com/api/v1/stock?symbol=${symbol}&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
       .then(res => res.json())
       .then(stock => {
-        console.log(stock.data[0])
         this.setState({
           stockDetails: stock.data[0]
         })
@@ -106,6 +106,14 @@ class App extends Component {
     this.setState({
       stockDetails: null,
       stockDetailsGif: null
+    })
+  }
+
+  backToHomepage() {
+    this.setState({
+      stockDetails: null,
+      stockDetailsGif: null,
+      searchResults: null
     })
   }
 
@@ -120,7 +128,6 @@ class App extends Component {
         this.setState({
           searchResults: data.data
         })
-        console.log(data.data)
       })
   }
 
@@ -136,7 +143,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header backToHomepage={this.backToHomepage} />
         {this.checkState()}
       </div>
     )
