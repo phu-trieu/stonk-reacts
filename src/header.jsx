@@ -8,7 +8,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="header py-2">
+      <div className="header py-2 mb-3">
         <div className="d-flex justify-content-between header-text-sizing m-auto">
           <div className="d-flex">
             <img className="logo mr-1" src="./images/trending_up-white-18dp.svg" alt=""/>

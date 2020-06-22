@@ -5,6 +5,7 @@ import Header from './header';
 import Homepage from './homepage';
 import SearchResultList from './search-result-list';
 import SearchResultListItem from './search-result-list-item';
+import StockDetails from './stock-details';
 
 class App extends Component {
   constructor(props) {
@@ -46,10 +47,37 @@ class App extends Component {
           symbol: "SPU.F"
         }
       ],
-      stockDetails: null
+      stockDetails: {
+        "symbol": "SNAP",
+        "name": "Snap Inc.",
+        "currency": "USD",
+        "price": 24.66,
+        "price_open": 24.00,
+        "day_high": 24.00,
+        "day_low": 21.95,
+        "52_week_high": 25.00,
+        "52_week_low": 7.89,
+        "day_change": 1.34,
+        "change_pct": 20.00,
+        "close_yesterday": null,
+        "market_cap": null,
+        "volume": null,
+        "volume_avg": null,
+        "shares": null,
+        "stock_exchange_long": "New York Stock Exchange",
+        "stock_exchange_short": "NYSE",
+        "timezone": "EDT",
+        "timezone_name": "America/New_York",
+        "gmt_offset": "-14400",
+        "last_trade_time": "N/A",
+        "pe": null,
+        "eps": null
+      },
+      stockDetailsGif: null
     }
     this.formSubmit = this.formSubmit.bind(this);
     this.stockDetails = this.stockDetails.bind(this);
+    this.backToResults = this.backToResults.bind(this);
   }
 
   componentDidMount() {
@@ -64,8 +92,20 @@ class App extends Component {
   }
 
   stockDetails(symbol) {
+    fetch(`https://api.worldtradingdata.com/api/v1/stock?symbol=${symbol}&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
+      .then(res => res.json())
+      .then(stock => {
+        console.log(stock.data[0])
+        this.setState({
+          stockDetails: stock.data[0]
+        })
+      })
+  }
+
+  backToResults() {
     this.setState({
-      stockDetails: symbol
+      stockDetails: null,
+      stockDetailsGif: null
     })
   }
 
@@ -85,6 +125,7 @@ class App extends Component {
   }
 
   checkState() {
+    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
     if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
