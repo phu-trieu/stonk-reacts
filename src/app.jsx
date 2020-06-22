@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './header';
 import Homepage from './homepage';
 import SearchResultList from './search-result-list';
@@ -14,32 +13,7 @@ class App extends Component {
       homepageGif: null,
       searchBar: null,
       searchResults: null,
-      stockDetails: {
-        "symbol": "SNAP",
-        "name": "Snap Inc",
-        "currency": "USD",
-        "price": 11.06,
-        "price_open": 11.30,
-        "day_high": 11.45,
-        "day_low": 10.85,
-        "52_week_high": 19.75,
-        "52_week_low": 7.89,
-        "day_change": 0.24,
-        "change_pct": 0.21,
-        "close_yesterday": "11.27",
-        "market_cap": "15352254464",
-        "volume": "36852882",
-        "volume_avg": "36852882",
-        "shares": "15779962",
-        "stock_exchange_long": "New York Stock Exchange",
-        "stock_exchange_short": "NYSE",
-        "timezone": "EDT",
-        "timezone_name": "America/New_York",
-        "gmt_offset": "-14400",
-        "last_trade_time": "2020-04-04 16:04:51",
-        "pe": "N/A",
-        "eps": "-0.75"
-      },
+      stockDetails: null,
       stockDetailsGif: null
     }
     this.formSubmit = this.formSubmit.bind(this);
