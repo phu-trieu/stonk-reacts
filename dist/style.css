@@ -41,6 +41,7 @@ body {
 
 .stonks-gif {
   width: 90%;
+  max-height: 500px;
 }
 
 .search-result-LI {
@@ -73,6 +74,18 @@ body {
 
 .mobile-header-text {
   font-size: default;
+}
+
+.fit-content {
+  width: fit-content;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.w-66 {
+  width: 66%;
 }
 
 @media all and (max-width: 302px) {

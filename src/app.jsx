@@ -51,14 +51,14 @@ class App extends Component {
         "symbol": "SNAP",
         "name": "Snap Inc.",
         "currency": "USD",
-        "price": null,
-        "price_open": null,
-        "day_high": null,
-        "day_low": null,
-        "52_week_high": null,
-        "52_week_low": null,
-        "day_change": null,
-        "change_pct": null,
+        "price": 24.66,
+        "price_open": 24.00,
+        "day_high": 24.00,
+        "day_low": 21.95,
+        "52_week_high": 25.00,
+        "52_week_low": 7.89,
+        "day_change": 1.34,
+        "change_pct": 20.00,
         "close_yesterday": null,
         "market_cap": null,
         "volume": null,
@@ -77,6 +77,7 @@ class App extends Component {
     }
     this.formSubmit = this.formSubmit.bind(this);
     this.stockDetails = this.stockDetails.bind(this);
+    this.backToResults = this.backToResults.bind(this);
   }
 
   componentDidMount() {
@@ -101,6 +102,13 @@ class App extends Component {
       })
   }
 
+  backToResults() {
+    this.setState({
+      stockDetails: null,
+      stockDetailsGif: null
+    })
+  }
+
   formSubmit(searchQuery) {
     event.preventDefault();
     this.setState({
@@ -117,7 +125,7 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} />
+    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
     if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
