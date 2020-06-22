@@ -128,6 +128,7 @@ class StockDetails extends Component {
       if (details.change_pct) return (details.change_pct).toFixed(2);
       return '';
     };
+    console.log(changePct)
     if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
     if (this.state.gif) {
       return (
@@ -155,27 +156,27 @@ class StockDetails extends Component {
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
             <div className="search-result-LI m-auto">
               <div>
-                <h4 className="detail-text">Price Open: ${priceOpen}</h4>
+                <h4 className="detail-text">Price Open: ${priceOpen()}</h4>
               </div>
               <div>
-                <h4 className="detail-text">Day High: ${dayHigh}</h4>
+                <h4 className="detail-text">Day High: ${dayHigh()}</h4>
               </div>
               <div>
-                <h4 className="detail-text">Day Low: ${dayLow}</h4>
+                <h4 className="detail-text">Day Low: ${dayLow()}</h4>
               </div>
               <div>
-                <h4 className="detail-text">52 Week High: ${yearHigh}</h4>
+                <h4 className="detail-text">52 Week High: ${yearHigh()}</h4>
               </div>
             </div>
             <div className="search-result-LI m-auto">
               <div className="text-right">
-                <h4 className="detail-text">52 Week Low: ${yearLow}</h4>
+                <h4 className="detail-text">52 Week Low: ${yearLow()}</h4>
               </div>
               <div className="text-right">
-                <h4 className="detail-text">Day Change: {this.posNegDayChange()}${dayChange}</h4>
+                <h4 className="detail-text">Day Change: {this.posNegDayChange()}${dayChange()}</h4>
               </div>
               <div className="text-right">
-                <h4 className="detail-text">Change %: {this.posNegDayChange()}{changePct}</h4>
+                <h4 className="detail-text">Change %: {this.posNegDayChange()}{changePct()}</h4>
               </div>
             </div>
           </div>
