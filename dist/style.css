@@ -104,6 +104,10 @@ body {
   transform: translate(0px, 50px);
 }
 
+.search-symbol {
+  font-size: 1.5rem;
+}
+
 @media all and (max-width: 750px) {
   .detail-text {
     font-size: 99%;
