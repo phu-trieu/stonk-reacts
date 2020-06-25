@@ -8,9 +8,15 @@ class SearchResultList extends Component {
   }
 
   render() {
-    const searchResults = this.props.searchResults
+    const searchResults = this.props.searchResults;
+    if (searchResults.length === 0) return (
+      <h3 className="text-center mt-5">No results were found</h3>
+    )
     return (
       <div>
+        <form action="">
+
+        </form>
         <div className="mobile-switch">
           <div className="d-flex justify-content-between pt-3 search-result-LI m-auto">
             <div className="d-flex search-result-symbol justify-content-between row">
@@ -30,14 +36,13 @@ class SearchResultList extends Component {
                 key={searchResult.name}
                 name={searchResult.name}
                 symbol={searchResult.symbol}
-                stockEx={searchResult.stock_exchange_short}
-                price={searchResult.price}
+                stockEx={searchResult.stock_exchange.acronym}
                 stockDetails={this.props.stockDetails}
               />
             )
           })
         }
-        <h3 className="text-center mt-5">End of Results</h3>
+        <h3 className="text-center mt-5">End of results</h3>
       </div>
     )
   }

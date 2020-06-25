@@ -15,7 +15,7 @@ class Header extends Component {
             <h2 className="my-auto mobile-header-text">Stonk Reacts</h2>
           </div>
           <div>
-            <img className="menu" src="/images/menu-white-18dp.svg" alt=""/>
+            {/* <img className="menu" src="/images/menu-white-18dp.svg" alt=""/> */}
           </div>
         </div>
       </div>
