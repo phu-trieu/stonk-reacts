@@ -234,12 +234,15 @@ class App extends Component {
     this.setState({
       stockDetails: null,
       stockDetailsGif: null,
-      searchResults: null
+      searchResults: []
     })
   }
 
   formSubmit(searchQuery) {
     event.preventDefault();
+    this.setState({
+      homepageGif: null
+    })
     fetch(`http://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
       .then(res => res.json())
       .then(data => {
@@ -251,7 +254,7 @@ class App extends Component {
 
   checkState() {
     if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
-    if (this.state.searchResults.length > 0) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} formSubmit={this.formSubmit} />
+    if (this.state.searchResults.length > 0) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }

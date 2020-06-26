@@ -4,17 +4,7 @@ import SearchResultListItem from './search-result-list-item';
 class SearchResultList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchQuery: ''
-    }
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  handleInputChange() {
-    const searchbar = document.getElementById('search2')
-    this.setState({
-      searchQuery: searchbar.value
-    })
+    this.state = null
   }
 
   render() {
@@ -24,25 +14,13 @@ class SearchResultList extends Component {
     )
     return (
       <div>
-        <form
-        className="search-result-LI m-auto d-flex align-items-center"
-        onSubmit={() => {
-            while (this.searchResultList.firstChild) {
-              console.log(this.searchResultList.firstChild)
-              this.searchResultList.removeChild(this.searchResultList.firstChild)
-            }
-            this.props.formSubmit(this.state.searchQuery)
-          }} >
-          <span className="fas fa-search search-symbol mr-2"></span>
-          <input
-            type="text"
-            className="w-25 text-body"
-            id="search2"
-            placeholder="e.g. SNAP"
-            onChange={this.handleInputChange} />
-        </form>
+        <div className="mx-auto mt-2 search-result-LI">
+          <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToHomepage()}>
+            &#8592; Back to homepage
+          </h6>
+        </div>
         <div className="mobile-switch">
-          <div className="d-flex justify-content-between pt-4 search-result-LI m-auto">
+          <div className="d-flex justify-content-between pt-2 search-result-LI m-auto">
             <div className="d-flex search-result-symbol justify-content-between row">
               <h4 className="m-0 col-sm-4 d-flex align-items-center font-weight-bold">Symbol</h4>
               <h4 className="m-0 col-sm-8 d-flex align-items-center font-weight-bold">Company Name</h4>
@@ -53,7 +31,7 @@ class SearchResultList extends Component {
           </div>
         </div>
         <hr className="thicc-border hr-mobile-switch" />
-        <div id="search-results" ref={div => {this.searchResultList = div}}>
+        <div id="search-results" ref={div => { this.searchResultList = div }}>
           {
             searchResults.map(searchResult => {
               return (
