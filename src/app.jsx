@@ -11,7 +11,6 @@ class App extends Component {
     super(props);
     this.state = {
       homepageGif: null,
-      searchBar: null,
       searchResults: [
         {
           "name": "TESLA INC",
@@ -241,21 +240,8 @@ class App extends Component {
 
   formSubmit(searchQuery) {
     event.preventDefault();
-    this.setState({
-      searchBar: searchQuery
-    })
     fetch(`http://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
-      .then(res => {
-        // this.state.searchResults.length = 0;
-        if (this.state.searchResults.length !== 0) {
-          const parent = document.getElementById('search-results');
-          console.log(parent.firstChild)
-          while (parent.firstChild) {
-            parent.removeChild(parent.lastChild)
-          }
-        }
-        return res.json()
-      })
+      .then(res => res.json())
       .then(data => {
         this.setState({
           searchResults: data.data
@@ -265,7 +251,7 @@ class App extends Component {
 
   checkState() {
     if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
-    if (this.state.searchResults.length !== 0) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} formSubmit={this.formSubmit} />
+    if (this.state.searchResults.length > 0) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} formSubmit={this.formSubmit} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }

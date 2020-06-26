@@ -24,7 +24,15 @@ class SearchResultList extends Component {
     )
     return (
       <div>
-        <form className="search-result-LI m-auto d-flex align-items-center" onSubmit={() => this.props.formSubmit(this.state.searchQuery)} >
+        <form
+        className="search-result-LI m-auto d-flex align-items-center"
+        onSubmit={() => {
+            while (this.searchResultList.firstChild) {
+              console.log(this.searchResultList.firstChild)
+              this.searchResultList.removeChild(this.searchResultList.firstChild)
+            }
+            this.props.formSubmit(this.state.searchQuery)
+          }} >
           <span className="fas fa-search search-symbol mr-2"></span>
           <input
             type="text"
@@ -45,7 +53,7 @@ class SearchResultList extends Component {
           </div>
         </div>
         <hr className="thicc-border hr-mobile-switch" />
-        <div id="search-results">
+        <div id="search-results" ref={div => {this.searchResultList = div}}>
           {
             searchResults.map(searchResult => {
               return (
