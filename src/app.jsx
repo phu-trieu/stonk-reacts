@@ -193,7 +193,8 @@ class App extends Component {
           }
         }
       ],
-      stockDetails: null,
+      stockDetails: [],
+      stockDetailsName: 'TESLA INC.',
       stockDetailsGif: null
     }
     this.formSubmit = this.formSubmit.bind(this);
@@ -213,7 +214,10 @@ class App extends Component {
       })
   }
 
-  stockDetails(symbol) {
+  stockDetails(symbol, name) {
+    this.setState({
+      stockDetailsName: name
+    })
     fetch(`http://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
@@ -253,7 +257,7 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
+    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} name={this.state.stockDetailsName} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
     if (this.state.searchResults.length > 0) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
