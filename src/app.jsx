@@ -203,7 +203,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://api.giphy.com/v1/gifs/f6OakvYpFx3H0ShU3L?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A')
+    fetch('https://api.giphy.com/v1/gifs/f6OakvYpFx3H0ShU3L?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT')
       .then(res => res.json())
       .then(json => {
         const { data } = json;
@@ -214,11 +214,11 @@ class App extends Component {
   }
 
   stockDetails(symbol) {
-    fetch(`https://api.worldtradingdata.com/api/v1/stock?symbol=${symbol}&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
+    fetch(`http://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
         this.setState({
-          stockDetails: stock.data[0]
+          stockDetails: stock.data
         })
       })
   }
