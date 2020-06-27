@@ -48,15 +48,20 @@ class App extends Component {
 
   backToResults() {
     this.setState({
-      stockDetails: null,
-      stockDetailsGif: null
+      stockDetails: null
     })
   }
 
   backToHomepage() {
     this.setState({
       stockDetails: null,
-      stockDetailsGif: null,
+      homepageGif: {
+        images: {
+          fixed_height: {
+            url: "https://media3.giphy.com/media/f6OakvYpFx3H0ShU3L/200.gif?cid=cbd8912dea645a680512f51ec4ad2153f9b067cb15fcdca7&rid=200.gif"
+          }
+        }
+      },
       searchResults: []
     })
   }
