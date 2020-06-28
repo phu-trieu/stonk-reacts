@@ -89,47 +89,41 @@ class StockDetails extends Component {
   }
 
   trendSymbol() {
-    const details = this.props.details;
-    if (!details[0].open) return '/images/error-white-18dp.svg';
-    if (details[0].close === details[0].open) return '/images/trending_flat-white-18dp.svg';
-    if (details[0].close < details[0].open) return 'images/trending_down-white-18dp.svg';
-    if (details[0].close > details[0].open) return 'images/trending_up-white-18dp.svg';
+    const details = this.props.details[0];
+    if (!details.open) return '/images/error-white-18dp.svg';
+    if (details.close === details.open) return '/images/trending_flat-white-18dp.svg';
+    if (details.close < details.open) return 'images/trending_down-white-18dp.svg';
+    if (details.close > details.open) return 'images/trending_up-white-18dp.svg';
   }
 
   trendColor() {
-    const details = this.props.details;
-    if (!details[0].open) return 'ml-1 text-warning';
-    if (details[0].close === details[0].open) return 'ml-1 text-white';
-    if (details[0].close < details[0].open) return 'ml-1 text-danger';
-    if (details[0].close > details[0].open) return 'ml-1 text-success';
+    const details = this.props.details[0];
+    if (!details.open) return 'ml-1 text-warning';
+    if (details.close === details.open) return 'ml-1 text-white';
+    if (details.close < details.open) return 'ml-1 text-danger';
+    if (details.close > details.open) return 'ml-1 text-success';
   }
 
   render() {
     const gif = this.props.gif;
-    const details = this.props.details;
+    const details = this.props.details[0];
     const priceOpen = () => {
-      if (details[0].open) return (details[0].open).toFixed(2);
-      return '';
+      return (details.open ? details.open.toFixed(2) : '')
     };
     const dayHigh = () => {
-      if (details[0].high) return (details[0].high).toFixed(2);
-      return '';
+      return (details.high ? (details.high).toFixed(2) : '')
     };
     const dayLow = () => {
-      if (details[0].low) return (details[0].low).toFixed(2);
-      return '';
+      return (details.low ? (details.low).toFixed(2) : '');
     };
     const volume = () => {
-      if (details[0].volume) return (details[0]).volume;
-      return '';
+      return (details.volume ? (details.volume) : '');
     };
     const dayChange = () => {
-      if (details[0].open) return (details[0].close - details[0].open).toFixed(2);
-      return '';
+      return (details.open ? (details.close - details.open).toFixed(2) : '');
     };
     const changePct = () => {
-      if (details[0].open) return (((details[0].close - details[0].open) / Math.abs(details[0].open)) * 100).toFixed(2);
-      return '';
+      return (details.open ? (((details.close - details.open) / Math.abs(details.open)) * 100).toFixed(2) : '');
     };
     console.log(changePct)
     if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
@@ -154,7 +148,7 @@ class StockDetails extends Component {
           </div>
           <div className="d-flex justify-content-between mt-3 mx-auto w-66">
             <div>
-              <h1>{details[0].symbol}</h1>
+              <h1>{details.symbol}</h1>
             </div>
             <div className="d-flex">
               <img src={this.trendSymbol()} alt="" className="menu" />

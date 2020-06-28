@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       homepageGif: null,
-      searchResults: [],
+      searchResults: null,
       stockDetails: null,
       stockDetailsName: null,
       stockDetailsGif: null
@@ -62,7 +62,7 @@ class App extends Component {
           }
         }
       },
-      searchResults: []
+      searchResults: null
     })
   }
 
@@ -82,11 +82,11 @@ class App extends Component {
 
   checkState() {
     if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} name={this.state.stockDetailsName} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
-    if (this.state.searchResults.length > 0) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
+    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }
-    return <h2 className="text-center pt-5">Loading...</h2>
+    return <h1 className="text-center pt-5">Loading...</h1>
   }
 
   render() {
