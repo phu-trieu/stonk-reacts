@@ -11,9 +11,9 @@ class App extends Component {
     super(props);
     this.state = {
       homepageGif: null,
-      searchBar: null,
       searchResults: null,
       stockDetails: null,
+      stockDetailsName: null,
       stockDetailsGif: null
     }
     this.formSubmit = this.formSubmit.bind(this);
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://api.giphy.com/v1/gifs/f6OakvYpFx3H0ShU3L?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A')
+    fetch('https://api.giphy.com/v1/gifs/f6OakvYpFx3H0ShU3L?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT')
       .then(res => res.json())
       .then(json => {
         const { data } = json;
@@ -33,27 +33,35 @@ class App extends Component {
       })
   }
 
-  stockDetails(symbol) {
-    fetch(`https://api.worldtradingdata.com/api/v1/stock?symbol=${symbol}&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
+  stockDetails(symbol, name) {
+    this.setState({
+      stockDetailsName: name
+    })
+    fetch(`http://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
         this.setState({
-          stockDetails: stock.data[0]
+          stockDetails: stock.data
         })
       })
   }
 
   backToResults() {
     this.setState({
-      stockDetails: null,
-      stockDetailsGif: null
+      stockDetails: null
     })
   }
 
   backToHomepage() {
     this.setState({
       stockDetails: null,
-      stockDetailsGif: null,
+      homepageGif: {
+        images: {
+          fixed_height: {
+            url: "https://media3.giphy.com/media/f6OakvYpFx3H0ShU3L/200.gif?cid=cbd8912dea645a680512f51ec4ad2153f9b067cb15fcdca7&rid=200.gif"
+          }
+        }
+      },
       searchResults: null
     })
   }
@@ -61,9 +69,9 @@ class App extends Component {
   formSubmit(searchQuery) {
     event.preventDefault();
     this.setState({
-      searchBar: searchQuery
+      homepageGif: null
     })
-    fetch(`https://api.worldtradingdata.com/api/v1/stock_search?search_term=${searchQuery}&limit=50&page=1&api_token=xNDJ3ejc00qEqA8clfkV7yA4qo2qCjD8WRLbVBIckWwoei2hiRkIyObMPAUm`)
+    fetch(`http://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -73,12 +81,12 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
-    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} />
+    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} name={this.state.stockDetailsName} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
+    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
     if (this.state.homepageGif) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }
-    return <h2 className="text-center pt-5">Loading...</h2>
+    return <h1 className="text-center pt-5">Loading...</h1>
   }
 
   render() {

@@ -11,8 +11,8 @@ class StockDetails extends Component {
   componentDidMount() {
     const gif = this.props.gif;
     const details = this.props.details;
-    if (!details.price) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=error&limit=25&offset=0&rating=G&lang=en')
+    if (details.length === 0) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=error&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -20,8 +20,9 @@ class StockDetails extends Component {
           })
         })
     }
-    if (details.change_pct < 5) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=so so&limit=25&offset=0&rating=G&lang=en')
+    const pctChange = (((details[0].close - details[0].open) / Math.abs(details[0].open)) * 100);
+    if (pctChange >= 0 && pctChange < 5) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=so so&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -29,8 +30,8 @@ class StockDetails extends Component {
           })
         })
     }
-    if (details.change_pct > 5 && details.change_pct < 20 && details.price < details.price_open) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=worried&limit=25&offset=0&rating=G&lang=en')
+    if (pctChange >= 5 && pctChange < 20 ) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=hopeful&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -38,8 +39,8 @@ class StockDetails extends Component {
           })
         })
     }
-    if (details.change_pct > 5 && details.change_pct < 20 && details.price > details.price_open) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=looking good&limit=25&offset=0&rating=G&lang=en')
+    if (pctChange >= 20) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=liftoff&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -47,8 +48,8 @@ class StockDetails extends Component {
           })
         })
     }
-    if (details.change_pct >= 20 && details.price < details.price_open) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=disaster&limit=25&offset=0&rating=G&lang=en')
+    if (pctChange < 0 && pctChange > -5) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=worried&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -56,8 +57,17 @@ class StockDetails extends Component {
           })
         })
     }
-    if (details.change_pct >= 20 && details.price > details.price_open) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=liftoff&limit=25&offset=0&rating=G&lang=en')
+    if (pctChange <= -5 && pctChange > -20) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=going down&limit=25&offset=0&rating=G&lang=en')
+        .then(res => res.json())
+        .then(gifs => {
+          this.setState({
+            gif: gifs.data
+          })
+        })
+    }
+    if (pctChange <= -20) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=disaster&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -74,62 +84,60 @@ class StockDetails extends Component {
   }
 
   getPrice() {
-    if (!this.props.details.price) return 'null';
-    return (this.props.details.price).toFixed(2);
-  }
-
-  posNegDayChange() {
-    if (this.props.details.price < this.props.details.price_open) return '-'
+    if (!this.props.details[0].close) return 'null';
+    return (this.props.details[0].close).toFixed(2);
   }
 
   trendSymbol() {
-    const details = this.props.details;
-    if (!details.price) return '/images/error-white-18dp.svg';
-    if (details.price < details.price_open) return 'images/trending_down-white-18dp.svg';
-    if (details.price > details.price_open) return 'images/trending_up-white-18dp.svg';
+    const details = this.props.details[0];
+    if (!details.open) return '/images/error-white-18dp.svg';
+    if (details.close === details.open) return '/images/trending_flat-white-18dp.svg';
+    if (details.close < details.open) return 'images/trending_down-white-18dp.svg';
+    if (details.close > details.open) return 'images/trending_up-white-18dp.svg';
   }
 
   trendColor() {
-    const details = this.props.details;
-    if (!details.price) return 'ml-1 text-warning';
-    if (details.price < details.price_open) return 'ml-1 text-danger';
-    if (details.price > details.price_open) return 'ml-1 text-success';
-
+    const details = this.props.details[0];
+    if (!details.open) return 'ml-1 text-warning';
+    if (details.close === details.open) return 'ml-1 text-white';
+    if (details.close < details.open) return 'ml-1 text-danger';
+    if (details.close > details.open) return 'ml-1 text-success';
   }
 
   render() {
     const gif = this.props.gif;
-    const details = this.props.details;
+    const details = this.props.details[0];
     const priceOpen = () => {
-      if (details.price_open) return (details.price_open).toFixed(2);
-      return '';
+      return (details.open ? details.open.toFixed(2) : '')
     };
     const dayHigh = () => {
-      if (details.day_high) return (details.day_high).toFixed(2);
-      return '';
+      return (details.high ? (details.high).toFixed(2) : '')
     };
     const dayLow = () => {
-      if (details.day_low) return (details.day_low).toFixed(2);
-      return '';
+      return (details.low ? (details.low).toFixed(2) : '');
     };
-    const yearHigh = () => {
-      if (details[`52_week_high`]) return (details[`52_week_high`]).toFixed(2);
-      return '';
-    };
-    const yearLow = () => {
-      if (details[`52_week_low`]) return (details[`52_week_low`]).toFixed(2);
-      return '';
+    const volume = () => {
+      return (details.volume ? (details.volume) : '');
     };
     const dayChange = () => {
-      if (details.day_change) return (details.day_change).toFixed(2);
-      return '';
+      return (details.open ? (details.close - details.open).toFixed(2) : '');
     };
     const changePct = () => {
-      if (details.change_pct) return (details.change_pct).toFixed(2);
-      return '';
+      return (details.open ? (((details.close - details.open) / Math.abs(details.open)) * 100).toFixed(2) : '');
     };
     console.log(changePct)
     if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
+    if (this.props.details.length === 0) return (
+      <div className="mx-auto mt-2 search-result-LI">
+        <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToResults()}>
+          &#8592; Back to results
+        </h6>
+        <h1 className="text-center pt-5">No data was found :(</h1>
+        <div className="d-flex justify-content-center my-5">
+          <img className="stonks-gif" src={this.getRandomGif()} alt="" />
+        </div>
+      </div>
+      )
     if (this.state.gif) {
       return (
         <div>
@@ -148,7 +156,7 @@ class StockDetails extends Component {
             </div>
           </div>
           <div className="w-66 d-flex m-auto">
-            <h3>{details.name}</h3>
+            <h3>{this.props.name}</h3>
           </div>
           <div className="d-flex justify-content-center my-5">
             <img className="stonks-gif" src={this.getRandomGif()} alt="" />
@@ -156,27 +164,24 @@ class StockDetails extends Component {
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
             <div className="search-result-LI m-auto">
               <div>
-                <h4 className="detail-text">Price Open: ${priceOpen()}</h4>
+                <h4 className="detail-text">Price Open: {priceOpen()}</h4>
               </div>
               <div>
-                <h4 className="detail-text">Day High: ${dayHigh()}</h4>
+                <h4 className="detail-text">Day High: {dayHigh()}</h4>
               </div>
               <div>
-                <h4 className="detail-text">Day Low: ${dayLow()}</h4>
-              </div>
-              <div>
-                <h4 className="detail-text">52 Week High: ${yearHigh()}</h4>
+                <h4 className="detail-text">Day Low: {dayLow()}</h4>
               </div>
             </div>
             <div className="search-result-LI m-auto">
               <div className="text-right">
-                <h4 className="detail-text">52 Week Low: ${yearLow()}</h4>
+                <h4 className="detail-text">Day Change: {dayChange()}</h4>
               </div>
               <div className="text-right">
-                <h4 className="detail-text">Day Change: {this.posNegDayChange()}${dayChange()}</h4>
+                <h4 className="detail-text">Change %: {changePct()}</h4>
               </div>
               <div className="text-right">
-                <h4 className="detail-text">Change %: {this.posNegDayChange()}{changePct()}</h4>
+                <h4 className="detail-text">Volume: {volume()}</h4>
               </div>
             </div>
           </div>
