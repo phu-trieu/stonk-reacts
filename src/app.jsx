@@ -37,7 +37,7 @@ class App extends Component {
     this.setState({
       stockDetailsName: name
     })
-    fetch(`http://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
+    fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
         this.setState({
@@ -71,7 +71,7 @@ class App extends Component {
     this.setState({
       homepageGif: null
     })
-    fetch(`http://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
+    fetch(`https://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
       .then(res => res.json())
       .then(data => {
         this.setState({
