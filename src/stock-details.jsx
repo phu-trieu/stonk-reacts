@@ -12,7 +12,7 @@ class StockDetails extends Component {
     const gif = this.props.gif;
     const details = this.props.details;
     if (details.length === 0) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=error&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=error&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -22,7 +22,7 @@ class StockDetails extends Component {
     }
     const pctChange = (((details[0].close - details[0].open) / Math.abs(details[0].open)) * 100);
     if (pctChange >= 0 && pctChange < 5) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=so so&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=so so&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -31,7 +31,7 @@ class StockDetails extends Component {
         })
     }
     if (pctChange >= 5 && pctChange < 20 ) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=hopeful&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=hopeful&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -40,7 +40,7 @@ class StockDetails extends Component {
         })
     }
     if (pctChange >= 20) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=liftoff&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=liftoff&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -49,7 +49,7 @@ class StockDetails extends Component {
         })
     }
     if (pctChange < 0 && pctChange > -5) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=worried&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=worried&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -58,7 +58,7 @@ class StockDetails extends Component {
         })
     }
     if (pctChange <= -5 && pctChange > -20) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=going down&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=going down&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
@@ -67,7 +67,7 @@ class StockDetails extends Component {
         })
     }
     if (pctChange <= -20) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=disaster&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=disaster&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
           this.setState({
