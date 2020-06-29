@@ -125,7 +125,6 @@ class StockDetails extends Component {
     const changePct = () => {
       return (details.open ? (((details.close - details.open) / Math.abs(details.open)) * 100).toFixed(2) : '');
     };
-    console.log(changePct)
     if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
     if (this.props.details.length === 0) return (
       <div className="mx-auto mt-2 search-result-LI">
