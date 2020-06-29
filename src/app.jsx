@@ -5,6 +5,7 @@ import Homepage from './homepage';
 import SearchResultList from './search-result-list';
 import SearchResultListItem from './search-result-list-item';
 import StockDetails from './stock-details';
+import Giphy from './giphy';
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://api.giphy.com/v1/gifs/f6OakvYpFx3H0ShU3L?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT')
+    fetch('https://api.giphy.com/v1/gifs/f6OakvYpFx3H0ShU3L?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A')
       .then(res => res.json())
       .then(json => {
         const { data } = json;
@@ -94,6 +95,7 @@ class App extends Component {
       <div>
         <Header backToHomepage={this.backToHomepage} />
         {this.checkState()}
+        <Giphy />
       </div>
     )
   }

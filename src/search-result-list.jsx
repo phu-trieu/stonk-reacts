@@ -13,7 +13,7 @@ class SearchResultList extends Component {
   componentDidMount() {
     const searchResults = this.props.searchResults;
     if (searchResults.length === 0) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=deserted&limit=25&offset=0&rating=G&lang=en')
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=deserted&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifSet => {
           this.setState({
