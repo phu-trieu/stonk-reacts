@@ -12,9 +12,7 @@ class SearchResultList extends Component {
 
   componentDidMount() {
     const searchResults = this.props.searchResults;
-    console.log('AAAAAAAHHHHH')
     if (searchResults.length === 0) {
-      console.log('FUUUUCK')
       return fetch('https://api.giphy.com/v1/gifs/search?api_key=8RxFYU11Hi6cCjYEJuQipJJ9965BaHUT&q=deserted&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifSet => {
