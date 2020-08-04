@@ -12,7 +12,7 @@ class Header extends Component {
         <div className="d-flex justify-content-between header-text-sizing m-auto">
           <div className="d-flex cursor-pointer" onClick={() => this.props.backToHomepage()}>
             <img className="logo mr-1" src="./images/trending_up-white-18dp.svg" alt=""/>
-            <h2 className="my-auto mobile-header-text">Stonk Reacts</h2>
+            <h2 className="my-auto mobile-header-text">$tonk Reacts</h2>
           </div>
         </div>
       </div>
