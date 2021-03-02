@@ -1,5 +1,5 @@
-# api-hackathon
-A hackathon project utilizing the data from two public APIs to create.
+# Stonk Reacts
+A hackathon project utilizing the data from the GIPHY and MarketStack APIs to provide a GIF reaction based on a stock's intraday performance.
 https://stonkreacts.phutrieu.com
 
 **Technologies**
