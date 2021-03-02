@@ -1,6 +1,6 @@
 # api-hackathon
 A hackathon project utilizing the data from two public APIs to create.
-https://stonk-reacts.phutrieu.com
+https://stonkreacts.phutrieu.com
 
 **Technologies**
 * React.js
