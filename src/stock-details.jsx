@@ -79,7 +79,7 @@ class StockDetails extends Component {
 
   getRandomGif() {
     const gif = this.state.gif;
-    const random = (Math.random() * 24).toFixed(0);
+    const random = Number((Math.random() * (gif.length - 1)).toFixed(0));
     return gif[random].images.fixed_height.url;
   }
 
