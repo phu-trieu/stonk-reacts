@@ -108,6 +108,19 @@ body {
   font-size: 1.5rem;
 }
 
+.sr-li {
+  transition: all 200ms ease-in;
+  border-bottom: white 1px solid;
+}
+
+.sr-li:hover {
+  background-color: white;
+}
+
+.sr-li:hover h5 {
+  color: black;
+}
+
 @media all and (max-width: 750px) {
   .detail-text {
     font-size: 99%;
