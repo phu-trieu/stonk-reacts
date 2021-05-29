@@ -21,7 +21,16 @@ class StockDetails extends Component {
         })
     }
     const pctChange = (((details[0].close - details[0].open) / Math.abs(details[0].open)) * 100);
-    if (pctChange >= 0 && pctChange < 5) {
+    if (pctChange === 0) {
+      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=zero&limit=25&offset=0&rating=g&lang=en')
+        .then(res => res.json())
+        .then(gifs => {
+          this.setState({
+            gif: gifs.data
+          })
+        })
+    }
+    if (pctChange > 0 && pctChange < 5) {
       return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=so so&limit=25&offset=0&rating=G&lang=en')
         .then(res => res.json())
         .then(gifs => {
