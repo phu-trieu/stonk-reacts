@@ -136,7 +136,7 @@ class StockDetails extends Component {
     };
     if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
     if (this.props.details.length === 0) return (
-      <div className="mx-auto mt-2 search-result-LI">
+      <div className="mx-auto mt-2 w-95">
         <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToResults()}>
           &#8592; Back to results
         </h6>
@@ -149,7 +149,7 @@ class StockDetails extends Component {
     if (this.state.gif) {
       return (
         <div>
-          <div className="mx-auto mt-2 search-result-LI">
+          <div className="mx-auto mt-2 w-95">
             <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToResults()}>
               &#8592; Back to results
             </h6>
@@ -170,7 +170,7 @@ class StockDetails extends Component {
             <img className="stonks-gif" src={this.getRandomGif()} alt="" />
           </div>
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
-            <div className="search-result-LI m-auto">
+            <div className="w-95 m-auto">
               <div>
                 <h4 className="detail-text">Price Open: {priceOpen()}</h4>
               </div>
@@ -181,7 +181,7 @@ class StockDetails extends Component {
                 <h4 className="detail-text">Day Low: {dayLow()}</h4>
               </div>
             </div>
-            <div className="search-result-LI m-auto">
+            <div className="w-95 m-auto">
               <div className="text-right">
                 <h4 className="detail-text">Day Change: {dayChange()}</h4>
               </div>

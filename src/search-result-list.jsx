@@ -33,43 +33,31 @@ class SearchResultList extends Component {
     return gif[random].images.fixed_height.url;
   }
 
-  render() {
+  checkResults() {
     const searchResults = this.props.searchResults;
-    if (!this.state.gif) {
-      return <h1 className="text-center pt-5">Loading...</h1>
-    }
     if (searchResults.length === 0 && this.state.gif) return (
       <div>
-        <div className="mx-auto mt-2 search-result-LI">
-          <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToHomepage()}>
-            &#8592; Back to homepage
-          </h6>
-        </div>
-        <h3 className="text-center mt-5">No results were found :(</h3>
+        <h3 className="text-center mt-5">No results were found :&#40;</h3>
         <div className="d-flex justify-content-center my-5">
-          <img src={this.getRandomGif()} alt="" className="stonks-gif"/>
+          <img src={this.getRandomGif()} alt="" className="stonks-gif" />
         </div>
       </div>
     )
     if (searchResults.length !== 0 && this.state.results) return (
       <div>
-        <div className="mx-auto mt-2 search-result-LI">
-          <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToHomepage()}>
-            &#8592; Back to homepage
-          </h6>
-        </div>
         <div className="mobile-switch">
-          <div className="d-flex justify-content-between pt-2 search-result-LI m-auto">
-            <div className="d-flex search-result-symbol justify-content-between row">
-              <h4 className="m-0 col-sm-4 d-flex align-items-center font-weight-bold">Symbol</h4>
-              <h4 className="m-0 col-sm-8 d-flex align-items-center font-weight-bold">Company Name</h4>
-            </div>
-            <div>
-              <h4 className="m-auto font-weight-bold stock-ex-header">Stock Exchange</h4>
+          <div className="border-bottom border-light border-3 pb-3">
+            <div className="d-flex justify-content-between w-95 pt-2 m-auto">
+              <div className="d-flex search-result-symbol justify-content-between row">
+                <h4 className="m-0 col-sm-4 d-flex align-items-center font-weight-bold">Symbol</h4>
+                <h4 className="m-0 col-sm-8 d-flex align-items-center font-weight-bold">Company Name</h4>
+              </div>
+              <div>
+                <h4 className="m-auto font-weight-bold stock-ex-header">Stock Exchange</h4>
+              </div>
             </div>
           </div>
         </div>
-        <hr className="thicc-border hr-mobile-switch" />
         <div id="search-results" ref={div => { this.searchResultList = div }}>
           {
             searchResults.map(searchResult => {
@@ -86,6 +74,25 @@ class SearchResultList extends Component {
           }
         </div>
         <h3 className="text-center mt-5">End of results</h3>
+      </div>
+    )
+  }
+
+  render() {
+    if (!this.state.gif) {
+      return <h1 className="text-center pt-5">Loading...</h1>
+    }
+    return (
+      <div>
+        <div className="back-to-homepage mx-auto mt-2 w-95">
+          <div className="fit-content">
+            <h6 className="cursor-pointer" onClick={() => this.props.backToHomepage()}>
+              &#8592; Back to homepage
+            </h6>
+            <div className="line"></div>
+          </div>
+        </div>
+        {this.checkResults()}
       </div>
     )
   }

@@ -44,7 +44,7 @@ body {
   max-height: 500px;
 }
 
-.search-result-LI {
+.w-95 {
   width: 95%;
 }
 
@@ -121,6 +121,18 @@ body {
   color: black;
 }
 
+.line {
+  height: 1px;
+  width: 0;
+  background-color: white;
+  transition: width 200ms ease-in-out;
+}
+
+.back-to-homepage:hover .line {
+  width: 100%;
+  transition: width 200ms ease-in-out;
+}
+
 @media all and (max-width: 750px) {
   .detail-text {
     font-size: 99%;
@@ -175,12 +187,6 @@ body {
 @media all and (min-width: 1250px) {
   .search-result-symbol {
     width: 50%;
-  }
-}
-
-@media all and (min-width: 720px) and (max-width: 959px) {
-  .search-result-LI {
-    width: 95%;
   }
 }
 
