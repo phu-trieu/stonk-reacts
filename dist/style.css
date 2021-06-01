@@ -19,8 +19,16 @@ body {
   width: 45px;
 }
 
-.header {
+header {
   background-color: #37C834;
+}
+
+.header-title > h2 {
+  transition: color 150ms ease-in-out;
+}
+
+.header-title:hover > h2 {
+  color: rgb(207, 207, 207)
 }
 
 .header-text-sizing {

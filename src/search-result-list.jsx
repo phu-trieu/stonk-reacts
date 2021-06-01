@@ -84,8 +84,8 @@ class SearchResultList extends Component {
     }
     return (
       <div>
-        <div className="back-to-homepage mx-auto mt-2 w-95">
-          <div className="fit-content">
+        <div className="mx-auto mt-2 w-95">
+          <div className="back-to-homepage fit-content">
             <h6 className="cursor-pointer" onClick={() => this.props.backToHomepage()}>
               &#8592; Back to homepage
             </h6>
