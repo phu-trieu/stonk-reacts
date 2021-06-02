@@ -60,14 +60,14 @@ class SearchResultList extends Component {
         </div>
         <div id="search-results" ref={div => { this.searchResultList = div }}>
           {
-            searchResults.map(searchResult => {
+            searchResults.map((searchResult, index) => {
               return (
                 <SearchResultListItem
-                  key={searchResult.name}
+                  key={index}
                   name={searchResult.name}
                   symbol={searchResult.symbol}
                   stockEx={searchResult.stock_exchange.acronym}
-                  stockDetails={this.props.stockDetails}
+                  getStockDetails={this.props.getStockDetails}
                 />
               )
             })

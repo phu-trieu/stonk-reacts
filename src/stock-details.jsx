@@ -5,13 +5,17 @@ class StockDetails extends Component {
     super(props);
     this.state = {
       gifsArray: [],
-      gif: null
+      randomGif: null,
+      gifSpecifics: {}
     }
   }
 
   componentDidMount() {
+    if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) console.log('peepeepoopoo')
     const details = this.props.details;
     const detailsEOD = this.props.details[0];
+    console.log(details);
+    // if (!detailsEOD) return;
     const pctChange = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100);
     const gifSearchQuery = () => {
       if (details.length === 0) return 'error';
@@ -29,6 +33,7 @@ class StockDetails extends Component {
         this.setState({
           gifsArray: gifs.data
         })
+        this.getRandomGif();
       })
   }
 
@@ -36,10 +41,10 @@ class StockDetails extends Component {
     const gifsArray = this.state.gifsArray;
     const random = Number((Math.random() * (gifsArray.length - 1)).toFixed(0));
     const randomGif = gifsArray[random];
-    // this.setState({
-    //   gif: 'abc'
-    // })
-    return randomGif.images.fixed_height.url;
+    this.setState({
+      randomGif: randomGif.images.fixed_height.url,
+      gifSpecifics: randomGif
+    })
   }
 
   getPrice() {
@@ -67,34 +72,30 @@ class StockDetails extends Component {
   checkDetailsStatus() {
     const details = this.props.details;
     const detailsEOD = this.props.details[0];
-    const priceOpen = () => {
-      return (detailsEOD.open ? detailsEOD.open.toFixed(2) : '')
-    };
-    const dayHigh = () => {
-      return (detailsEOD.high ? (detailsEOD.high).toFixed(2) : '')
-    };
-    const dayLow = () => {
-      return (detailsEOD.low ? (detailsEOD.low).toFixed(2) : '');
-    };
-    const volume = () => {
-      return (detailsEOD.volume ? (detailsEOD.volume) : '');
-    };
-    const dayChange = () => {
-      return (detailsEOD.open ? (detailsEOD.close - detailsEOD.open).toFixed(2) : '');
-    };
-    const changePct = () => {
-      return (detailsEOD.open ? (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100).toFixed(2) : '');
-    };
-    if (details.length === 0) {
-      return (
-        <div className="mx-auto mt-2 w-95">
-          <h1 className="text-center pt-5">No data was found :&lpar;</h1>
-          <div className="d-flex justify-content-center my-5">
-            <img className="stonks-gif" src={this.getRandomGif()} alt="" />
-          </div>
-        </div>
-      )
-    }
+
+    const priceOpen = () => (detailsEOD.open ? detailsEOD.open.toFixed(2) : '');
+
+    const dayHigh = () => (detailsEOD.high ? (detailsEOD.high).toFixed(2) : '');
+
+    const dayLow = () => (detailsEOD.low ? (detailsEOD.low).toFixed(2) : '');;
+
+    const volume = () => (detailsEOD.volume ? (detailsEOD.volume) : '');
+
+    const dayChange = () => (detailsEOD.open ? (detailsEOD.close - detailsEOD.open).toFixed(2) : '');
+
+    const changePct = () => (detailsEOD.open ? (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100).toFixed(2) : '');
+
+    // if (details.length === 0) {
+    //   return (
+    //     <div className="mx-auto mt-2 w-95">
+    //       <h1 className="text-center pt-5">No data was found :&lpar;</h1>
+    //       <div className="d-flex justify-content-center my-5">
+    //         <img className="stonks-gif" src={this.state.randomGif} alt="" />
+    //       </div>
+    //     </div>
+    //   )
+    // }
+
     if (this.state.gifsArray[0]) {
       return (
         <div>
@@ -108,10 +109,10 @@ class StockDetails extends Component {
             </div>
           </div>
           <div className="w-66 d-flex m-auto">
-            <h3>{this.props.name}</h3>
+            <h3>{this.props.stockDetailsName}</h3>
           </div>
           <div className="d-flex justify-content-center my-5">
-            <img className="stonks-gif" src={this.getRandomGif()} alt="" />
+            <img className="stonks-gif" src={this.state.randomGif} title={this.state.gifSpecifics.title} alt={this.state.gifSpecifics.title} />
           </div>
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
             <div className="w-95 m-auto">
@@ -143,10 +144,19 @@ class StockDetails extends Component {
   }
 
   render() {
-    const gif = this.props.gif;
     const detailsEOD = this.props.details[0];
-    if (!this.state.gifsArray[0]) return <h1 className="text-center pt-5">Loading...</h1>
+    if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) return <h1 className="text-center pt-5">Loading...</h1>
 
+    if (this.props.details.length === 0) {
+      return (
+        <div className="mx-auto mt-2 w-95">
+          <h1 className="text-center pt-5">No data was found :&#40;</h1>
+          <div className="d-flex justify-content-center my-5">
+            <img className="stonks-gif" src={this.state.randomGif} alt="" />
+          </div>
+        </div>
+      )
+    }
 
 
     return (

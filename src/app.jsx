@@ -11,14 +11,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      homepageGif: null,
-      searchResults: null,
-      stockDetails: null,
-      stockDetailsName: null,
+      homepageGif: {},
+      searchResults: [],
+      stockDetails: [],
+      stockDetailsName: '',
       stockDetailsGif: null
     }
     this.formSubmit = this.formSubmit.bind(this);
-    this.stockDetails = this.stockDetails.bind(this);
+    this.getStockDetails = this.getStockDetails.bind(this);
     this.backToResults = this.backToResults.bind(this);
     this.backToHomepage = this.backToHomepage.bind(this);
   }
@@ -34,28 +34,27 @@ class App extends Component {
       })
   }
 
-  stockDetails(symbol, name) {
-    this.setState({
-      stockDetailsName: name
-    })
+  getStockDetails(symbol, name) {
     fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
         this.setState({
-          stockDetails: stock.data
+          stockDetails: stock.data,
+          stockDetailsName: name
         })
       })
   }
 
   backToResults() {
     this.setState({
-      stockDetails: null
+      stockDetails: [],
+      stockDetailsName: ''
     })
   }
 
   backToHomepage() {
     this.setState({
-      stockDetails: null,
+      stockDetails: [],
       homepageGif: {
         images: {
           fixed_height: {
@@ -63,14 +62,15 @@ class App extends Component {
           }
         }
       },
-      searchResults: null
+      searchResults: [],
+      stockDetailsName: ''
     })
   }
 
   formSubmit(searchQuery) {
     event.preventDefault();
     this.setState({
-      homepageGif: null
+      homepageGif: {}
     })
     fetch(`https://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
       .then(res => res.json())
@@ -82,9 +82,9 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} name={this.state.stockDetailsName} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
-    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
-    if (this.state.homepageGif) {
+    if (this.state.stockDetailsName) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
+    if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} getStockDetails={this.getStockDetails} backToHomepage={this.backToHomepage} />
+    if (Object.keys(this.state.homepageGif).length) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }
     return <h1 className="text-center pt-5">Loading...</h1>
