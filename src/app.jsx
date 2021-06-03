@@ -6,6 +6,7 @@ import SearchResultList from './search-result-list';
 import SearchResultListItem from './search-result-list-item';
 import StockDetails from './stock-details';
 import Giphy from './giphy';
+import ErrorPage from './error-page';
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class App extends Component {
       searchResults: [],
       stockDetails: [],
       stockDetailsName: '',
-      stockDetailsGif: null
+      stockDetailsGif: null,
+      error: false
     }
     this.formSubmit = this.formSubmit.bind(this);
     this.getStockDetails = this.getStockDetails.bind(this);
@@ -39,10 +41,14 @@ class App extends Component {
       .then(res => res.json())
       .then(stock => {
         this.setState({
-          stockDetails: stock.data,
-          stockDetailsName: name
+          stockDetails: stock.data
         })
       })
+    if (this.state.stockDetails.length) {
+      this.setState({
+        stockDetailsName: name
+      })
+    }
   }
 
   backToResults() {
@@ -78,11 +84,17 @@ class App extends Component {
         this.setState({
           searchResults: data.data
         })
+        if (!this.state.searchResults.length) {
+          this.setState({
+            error: true
+          })
+        }
       })
   }
 
   checkState() {
-    if (this.state.stockDetailsName) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
+    if (this.state.error) return <ErrorPage />
+    if (this.state.stockDetails.length) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
     if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} getStockDetails={this.getStockDetails} backToHomepage={this.backToHomepage} />
     if (Object.keys(this.state.homepageGif).length) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
