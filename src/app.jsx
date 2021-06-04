@@ -48,15 +48,17 @@ class App extends Component {
     }
   }
 
-  async getStockDetails(symbol, name) {
-    await fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
+  getStockDetails(symbol, name) {
+    fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
         this.setState({
           stockDetails: stock.data
         })
       })
-      this.checkForData();
+      .then(() => {
+        this.checkForData();
+      })
   }
 
 

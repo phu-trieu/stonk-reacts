@@ -5,7 +5,7 @@ class StockDetails extends Component {
     super(props);
     this.state = {
       gifsArray: [],
-      randomGif: null,
+      randomGif: '',
       gifSpecifics: {}
     }
   }
@@ -16,7 +16,7 @@ class StockDetails extends Component {
     const pctChange = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100);
     const gifSearchQuery = () => {
       if (details.length === 0) return 'error';
-      if (pctChange === 0) return 'zero';
+      if (pctChange === 0) return 'nothing happened';
       if (pctChange > 0 && pctChange < 5) return 'so so';
       if (pctChange >= 5 && pctChange < 15) return 'hopeful';
       if (pctChange >= 15) return 'liftoff';
@@ -82,17 +82,6 @@ class StockDetails extends Component {
 
     const changePct = () => (detailsEOD.open ? (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100).toFixed(2) : '');
 
-    // if (details.length === 0) {
-    //   return (
-    //     <div className="mx-auto mt-2 w-95">
-    //       <h1 className="text-center pt-5">No data was found :&lpar;</h1>
-    //       <div className="d-flex justify-content-center my-5">
-    //         <img className="stonks-gif" src={this.state.randomGif} alt="" />
-    //       </div>
-    //     </div>
-    //   )
-    // }
-
     if (this.state.gifsArray[0]) {
       return (
         <div>
@@ -143,18 +132,6 @@ class StockDetails extends Component {
   render() {
     const detailsEOD = this.props.details[0];
     if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) return <h1 className="text-center pt-5">Loading...</h1>
-
-    // if (this.props.details.length === 0) {
-    //   return (
-    //     <div className="mx-auto mt-2 w-95">
-    //       <h1 className="text-center pt-5">No data was found :&#40;</h1>
-    //       <div className="d-flex justify-content-center my-5">
-    //         <img className="stonks-gif" src={this.state.randomGif} alt="" />
-    //       </div>
-    //     </div>
-    //   )
-    // }
-
 
     return (
       <div>
