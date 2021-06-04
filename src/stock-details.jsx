@@ -11,11 +11,8 @@ class StockDetails extends Component {
   }
 
   componentDidMount() {
-    if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) console.log('peepeepoopoo')
     const details = this.props.details;
     const detailsEOD = this.props.details[0];
-    console.log(details);
-    // if (!detailsEOD) return;
     const pctChange = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100);
     const gifSearchQuery = () => {
       if (details.length === 0) return 'error';
@@ -147,16 +144,16 @@ class StockDetails extends Component {
     const detailsEOD = this.props.details[0];
     if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) return <h1 className="text-center pt-5">Loading...</h1>
 
-    if (this.props.details.length === 0) {
-      return (
-        <div className="mx-auto mt-2 w-95">
-          <h1 className="text-center pt-5">No data was found :&#40;</h1>
-          <div className="d-flex justify-content-center my-5">
-            <img className="stonks-gif" src={this.state.randomGif} alt="" />
-          </div>
-        </div>
-      )
-    }
+    // if (this.props.details.length === 0) {
+    //   return (
+    //     <div className="mx-auto mt-2 w-95">
+    //       <h1 className="text-center pt-5">No data was found :&#40;</h1>
+    //       <div className="d-flex justify-content-center my-5">
+    //         <img className="stonks-gif" src={this.state.randomGif} alt="" />
+    //       </div>
+    //     </div>
+    //   )
+    // }
 
 
     return (

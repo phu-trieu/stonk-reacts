@@ -36,25 +36,35 @@ class App extends Component {
       })
   }
 
-  getStockDetails(symbol, name) {
-    fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
+  checkForData() {
+    if (this.state.stockDetails.length) {
+      return this.setState({
+        stockDetailsName: name
+      })
+    } else {
+      return this.setState({
+        error: true
+      })
+    }
+  }
+
+  async getStockDetails(symbol, name) {
+    await fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
         this.setState({
           stockDetails: stock.data
         })
       })
-    if (this.state.stockDetails.length) {
-      this.setState({
-        stockDetailsName: name
-      })
-    }
+      this.checkForData();
   }
+
 
   backToResults() {
     this.setState({
       stockDetails: [],
-      stockDetailsName: ''
+      stockDetailsName: '',
+      error: false
     })
   }
 
@@ -69,7 +79,8 @@ class App extends Component {
         }
       },
       searchResults: [],
-      stockDetailsName: ''
+      stockDetailsName: '',
+      error: false
     })
   }
 
@@ -93,9 +104,9 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.error) return <ErrorPage />
+    if (this.state.error) return <ErrorPage backToResults={this.backToResults} backToHomepage={this.backToHomepage} searchResults={this.state.searchResults} />
     if (this.state.stockDetails.length) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
-    if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} getStockDetails={this.getStockDetails} backToHomepage={this.backToHomepage} />
+    if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.state.stockDetails} getStockDetails={this.getStockDetails} checkForData={this.checkForData} backToHomepage={this.backToHomepage} />
     if (Object.keys(this.state.homepageGif).length) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }

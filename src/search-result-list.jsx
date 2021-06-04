@@ -67,7 +67,9 @@ class SearchResultList extends Component {
                   name={searchResult.name}
                   symbol={searchResult.symbol}
                   stockEx={searchResult.stock_exchange.acronym}
+                  stockDetails={this.props.stockDetails}
                   getStockDetails={this.props.getStockDetails}
+                  checkForData={this.props.checkForData}
                 />
               )
             })
