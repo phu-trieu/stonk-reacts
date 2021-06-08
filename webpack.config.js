@@ -3,7 +3,7 @@ const path = require('path');
 const publicPath = path.join(__dirname, 'dist')
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   resolve: {
     extensions: ['.js', '.jsx']
   },
