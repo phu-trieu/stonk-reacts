@@ -19,8 +19,16 @@ body {
   width: 45px;
 }
 
-.header {
+header {
   background-color: #37C834;
+}
+
+.header-title > h2 {
+  transition: color 150ms ease-in-out;
+}
+
+.header-title:hover > h2 {
+  color: rgb(207, 207, 207)
 }
 
 .header-text-sizing {
@@ -44,7 +52,7 @@ body {
   max-height: 500px;
 }
 
-.search-result-LI {
+.w-95 {
   width: 95%;
 }
 
@@ -108,6 +116,31 @@ body {
   font-size: 1.5rem;
 }
 
+.sr-li {
+  transition: all 200ms ease-in;
+  border-bottom: white 1px solid;
+}
+
+.sr-li:hover {
+  background-color: white;
+}
+
+.sr-li:hover h5 {
+  color: black;
+}
+
+.line {
+  height: 1px;
+  width: 0;
+  background-color: white;
+  transition: width 200ms ease-in-out;
+}
+
+.back-to-homepage:hover .line {
+  width: 100%;
+  transition: width 200ms ease-in-out;
+}
+
 @media all and (max-width: 750px) {
   .detail-text {
     font-size: 99%;
@@ -162,12 +195,6 @@ body {
 @media all and (min-width: 1250px) {
   .search-result-symbol {
     width: 50%;
-  }
-}
-
-@media all and (min-width: 720px) and (max-width: 959px) {
-  .search-result-LI {
-    width: 95%;
   }
 }
 

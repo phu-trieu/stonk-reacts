@@ -4,159 +4,90 @@ class StockDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gif: null
+      gifsArray: [],
+      randomGif: '',
+      gifSpecifics: {}
     }
   }
 
   componentDidMount() {
-    const gif = this.props.gif;
     const details = this.props.details;
-    if (details.length === 0) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=error&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
+    const detailsEOD = this.props.details[0];
+    const pctChange = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100);
+    const gifSearchQuery = () => {
+      if (details.length === 0) return 'error';
+      if (pctChange === 0) return 'nothing happened';
+      if (pctChange > 0 && pctChange < 5) return 'so so';
+      if (pctChange >= 5 && pctChange < 15) return 'hopeful';
+      if (pctChange >= 15) return 'liftoff';
+      if (pctChange < 0 && pctChange > -5) return 'worried';
+      if (pctChange <= -5 && pctChange > -15) return 'going down';
+      if (pctChange <= -15) return 'disaster';
     }
-    const pctChange = (((details[0].close - details[0].open) / Math.abs(details[0].open)) * 100);
-    if (pctChange === 0) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=zero&limit=25&offset=0&rating=g&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
+    return fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=${gifSearchQuery()}&limit=25&offset=0&rating=G&lang=en`)
+      .then(res => res.json())
+      .then(gifs => {
+        this.setState({
+          gifsArray: gifs.data
         })
-    }
-    if (pctChange > 0 && pctChange < 5) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=so so&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
-    }
-    if (pctChange >= 5 && pctChange < 20 ) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=hopeful&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
-    }
-    if (pctChange >= 20) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=liftoff&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
-    }
-    if (pctChange < 0 && pctChange > -5) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=worried&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
-    }
-    if (pctChange <= -5 && pctChange > -20) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=going down&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
-    }
-    if (pctChange <= -20) {
-      return fetch('https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=disaster&limit=25&offset=0&rating=G&lang=en')
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gif: gifs.data
-          })
-        })
-    }
+        this.getRandomGif();
+      })
   }
 
   getRandomGif() {
-    const gif = this.state.gif;
-    const random = Number((Math.random() * (gif.length - 1)).toFixed(0));
-    return gif[random].images.fixed_height.url;
+    const gifsArray = this.state.gifsArray;
+    const random = Number((Math.random() * (gifsArray.length - 1)).toFixed(0));
+    const randomGif = gifsArray[random];
+    this.setState({
+      randomGif: randomGif.images.fixed_height.url,
+      gifSpecifics: randomGif
+    })
   }
 
   getPrice() {
-    if (!this.props.details[0].close) return 'null';
-    return (this.props.details[0].close).toFixed(2);
+    const detailsEOD = this.props.details[0];
+    if (!detailsEOD.close) return 'null';
+    return (detailsEOD.close).toFixed(2);
   }
 
   trendSymbol() {
-    const details = this.props.details[0];
-    if (!details.open) return '/images/error-white-18dp.svg';
-    if (details.close === details.open) return '/images/trending_flat-white-18dp.svg';
-    if (details.close < details.open) return 'images/trending_down-white-18dp.svg';
-    if (details.close > details.open) return 'images/trending_up-white-18dp.svg';
+    const detailsEOD = this.props.details[0];
+    if (!detailsEOD.open) return '/images/error-white-18dp.svg';
+    if (detailsEOD.close === detailsEOD.open) return '/images/trending_flat-white-18dp.svg';
+    if (detailsEOD.close < detailsEOD.open) return 'images/trending_down-white-18dp.svg';
+    if (detailsEOD.close > detailsEOD.open) return 'images/trending_up-white-18dp.svg';
   }
 
   trendColor() {
-    const details = this.props.details[0];
-    if (!details.open) return 'ml-1 text-warning';
-    if (details.close === details.open) return 'ml-1 text-white';
-    if (details.close < details.open) return 'ml-1 text-danger';
-    if (details.close > details.open) return 'ml-1 text-success';
+    const detailsEOD = this.props.details[0];
+    if (!detailsEOD.open) return 'ml-1 text-warning';
+    if (detailsEOD.close === detailsEOD.open) return 'ml-1 text-white';
+    if (detailsEOD.close < detailsEOD.open) return 'ml-1 text-danger';
+    if (detailsEOD.close > detailsEOD.open) return 'ml-1 text-success';
   }
 
-  render() {
-    const gif = this.props.gif;
-    const details = this.props.details[0];
-    const priceOpen = () => {
-      return (details.open ? details.open.toFixed(2) : '')
-    };
-    const dayHigh = () => {
-      return (details.high ? (details.high).toFixed(2) : '')
-    };
-    const dayLow = () => {
-      return (details.low ? (details.low).toFixed(2) : '');
-    };
-    const volume = () => {
-      return (details.volume ? (details.volume) : '');
-    };
-    const dayChange = () => {
-      return (details.open ? (details.close - details.open).toFixed(2) : '');
-    };
-    const changePct = () => {
-      return (details.open ? (((details.close - details.open) / Math.abs(details.open)) * 100).toFixed(2) : '');
-    };
-    if (!this.state.gif) return <h1 className="text-center pt-5">Loading...</h1>
-    if (this.props.details.length === 0) return (
-      <div className="mx-auto mt-2 search-result-LI">
-        <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToResults()}>
-          &#8592; Back to results
-        </h6>
-        <h1 className="text-center pt-5">No data was found :(</h1>
-        <div className="d-flex justify-content-center my-5">
-          <img className="stonks-gif" src={this.getRandomGif()} alt="" />
-        </div>
-      </div>
-      )
-    if (this.state.gif) {
+  checkDetailsStatus() {
+    const details = this.props.details;
+    const detailsEOD = this.props.details[0];
+
+    const priceOpen = () => (detailsEOD.open ? detailsEOD.open.toFixed(2) : '');
+
+    const dayHigh = () => (detailsEOD.high ? (detailsEOD.high).toFixed(2) : '');
+
+    const dayLow = () => (detailsEOD.low ? (detailsEOD.low).toFixed(2) : '');;
+
+    const volume = () => (detailsEOD.volume ? (detailsEOD.volume) : '');
+
+    const dayChange = () => (detailsEOD.open ? (detailsEOD.close - detailsEOD.open).toFixed(2) : '');
+
+    const changePct = () => (detailsEOD.open ? (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100).toFixed(2) : '');
+
+    if (this.state.gifsArray[0]) {
       return (
         <div>
-          <div className="mx-auto mt-2 search-result-LI">
-            <h6 className="fit-content cursor-pointer" onClick={() => this.props.backToResults()}>
-              &#8592; Back to results
-            </h6>
-          </div>
           <div className="d-flex justify-content-between mt-3 mx-auto w-66">
             <div>
-              <h1>{details.symbol}</h1>
+              <h1>{detailsEOD.symbol}</h1>
             </div>
             <div className="d-flex">
               <img src={this.trendSymbol()} alt="" className="menu" />
@@ -164,13 +95,13 @@ class StockDetails extends Component {
             </div>
           </div>
           <div className="w-66 d-flex m-auto">
-            <h3>{this.props.name}</h3>
+            <h3>{this.props.stockDetailsName}</h3>
           </div>
           <div className="d-flex justify-content-center my-5">
-            <img className="stonks-gif" src={this.getRandomGif()} alt="" />
+            <img className="stonks-gif" src={this.state.randomGif} title={this.state.gifSpecifics.title} alt={this.state.gifSpecifics.title} />
           </div>
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
-            <div className="search-result-LI m-auto">
+            <div className="w-95 m-auto">
               <div>
                 <h4 className="detail-text">Price Open: {priceOpen()}</h4>
               </div>
@@ -181,7 +112,7 @@ class StockDetails extends Component {
                 <h4 className="detail-text">Day Low: {dayLow()}</h4>
               </div>
             </div>
-            <div className="search-result-LI m-auto">
+            <div className="w-95 m-auto">
               <div className="text-right">
                 <h4 className="detail-text">Day Change: {dayChange()}</h4>
               </div>
@@ -196,6 +127,25 @@ class StockDetails extends Component {
         </div>
       )
     }
+  }
+
+  render() {
+    const detailsEOD = this.props.details[0];
+    if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) return <h1 className="text-center pt-5">Loading...</h1>
+
+    return (
+      <div>
+        <div className="mx-auto mt-2 w-95">
+          <div className="back-to-homepage fit-content">
+            <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
+              &#8592; Back to results
+            </h6>
+            <div className="line"></div>
+          </div>
+        </div>
+        {this.checkDetailsStatus()}
+      </div>
+    )
   }
 }
 

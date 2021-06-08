@@ -6,19 +6,21 @@ import SearchResultList from './search-result-list';
 import SearchResultListItem from './search-result-list-item';
 import StockDetails from './stock-details';
 import Giphy from './giphy';
+import ErrorPage from './error-page';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      homepageGif: null,
-      searchResults: null,
-      stockDetails: null,
-      stockDetailsName: null,
-      stockDetailsGif: null
+      homepageGif: {},
+      searchResults: [],
+      stockDetails: [],
+      stockDetailsName: '',
+      stockDetailsGif: null,
+      error: true
     }
     this.formSubmit = this.formSubmit.bind(this);
-    this.stockDetails = this.stockDetails.bind(this);
+    this.getStockDetails = this.getStockDetails.bind(this);
     this.backToResults = this.backToResults.bind(this);
     this.backToHomepage = this.backToHomepage.bind(this);
   }
@@ -34,10 +36,19 @@ class App extends Component {
       })
   }
 
-  stockDetails(symbol, name) {
-    this.setState({
-      stockDetailsName: name
-    })
+  checkForData() {
+    if (this.state.stockDetails.length) {
+      return this.setState({
+        stockDetailsName: name
+      })
+    } else {
+      return this.setState({
+        error: true
+      })
+    }
+  }
+
+  getStockDetails(symbol, name) {
     fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
@@ -45,17 +56,23 @@ class App extends Component {
           stockDetails: stock.data
         })
       })
+      .then(() => {
+        this.checkForData();
+      })
   }
+
 
   backToResults() {
     this.setState({
-      stockDetails: null
+      stockDetails: [],
+      stockDetailsName: '',
+      error: false
     })
   }
 
   backToHomepage() {
     this.setState({
-      stockDetails: null,
+      stockDetails: [],
       homepageGif: {
         images: {
           fixed_height: {
@@ -63,14 +80,16 @@ class App extends Component {
           }
         }
       },
-      searchResults: null
+      searchResults: [],
+      stockDetailsName: '',
+      error: false
     })
   }
 
   formSubmit(searchQuery) {
     event.preventDefault();
     this.setState({
-      homepageGif: null
+      homepageGif: {}
     })
     fetch(`https://api.marketstack.com/v1/tickers?access_key=fb1fd1efa8b98380b5fee609590442a8&search=${searchQuery}`)
       .then(res => res.json())
@@ -78,13 +97,19 @@ class App extends Component {
         this.setState({
           searchResults: data.data
         })
+        if (!this.state.searchResults.length) {
+          this.setState({
+            error: true
+          })
+        }
       })
   }
 
   checkState() {
-    if (this.state.stockDetails) return <StockDetails details={this.state.stockDetails} name={this.state.stockDetailsName} gif={this.state.stockDetailsGif} backToResults={this.backToResults} />
-    if (this.state.searchResults) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.stockDetails} backToHomepage={this.backToHomepage} />
-    if (this.state.homepageGif) {
+    if (this.state.error) return <ErrorPage backToResults={this.backToResults} backToHomepage={this.backToHomepage} searchResults={this.state.searchResults} />
+    if (this.state.stockDetails.length) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
+    if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.state.stockDetails} getStockDetails={this.getStockDetails} checkForData={this.checkForData} backToHomepage={this.backToHomepage} />
+    if (Object.keys(this.state.homepageGif).length) {
       return <Homepage gif={this.state.homepageGif} formSubmit={this.formSubmit} />
     }
     return <h1 className="text-center pt-5">Loading...</h1>
