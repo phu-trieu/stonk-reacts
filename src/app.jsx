@@ -17,7 +17,7 @@ class App extends Component {
       stockDetails: [],
       stockDetailsName: '',
       stockDetailsGif: null,
-      error: true
+      error: false
     }
     this.formSubmit = this.formSubmit.bind(this);
     this.getStockDetails = this.getStockDetails.bind(this);
