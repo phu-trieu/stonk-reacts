@@ -3,6 +3,34 @@ import React, { Component } from 'react'
 export class ErrorPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      gifs: [],
+      randomGif: ''
+    }
+    }
+
+  getRandomGif() {
+    const gifs = this.state.gifs;
+    const random = Number((Math.random() * (gifs.length - 1)).toFixed(0));
+    const randomGif = gifs[random];
+    this.setState({
+      randomGif: randomGif.images.fixed_height.url
+    })
+  }
+
+    fetchGif() {
+      fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=error&limit=25&offset=0&rating=G&lang=en`)
+        .then(res => res.json())
+        .then(gifs => {
+          this.setState({
+            gifs: gifs.data
+          })
+          this.getRandomGif();
+        })
+    }
+
+    componentDidMount() {
+      this.fetchGif();
     }
 
   backToResultsOrHomepage() {
@@ -28,7 +56,7 @@ export class ErrorPage extends Component {
         </div>
         <h1 className="text-center pt-5">No data was found :&#40;</h1>
         <div className="d-flex justify-content-center my-5">
-          <img className="stonks-gif" src="" alt="" />
+          <img className="stonks-gif" src={this.state.randomGif} alt="" />
         </div>
       </div>
     )
