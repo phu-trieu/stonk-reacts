@@ -21,7 +21,7 @@ class StockDetails extends Component {
       if (pctChange >= 5 && pctChange < 15) return 'hopeful';
       if (pctChange >= 15) return 'liftoff';
       if (pctChange < 0 && pctChange > -5) return 'worried';
-      if (pctChange <= -5 && pctChange > -15) return 'going down';
+      if (pctChange <= -5 && pctChange > -15) return 'falling';
       if (pctChange <= -15) return 'disaster';
     }
     return fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=${gifSearchQuery()}&limit=25&offset=0&rating=G&lang=en`)
@@ -132,18 +132,18 @@ class StockDetails extends Component {
   render() {
     const detailsEOD = this.props.details[0];
     return (
-        <div>
-          <div className="mx-auto mt-2 w-95">
-            <div className="back-to-homepage fit-content">
-              <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
-                &#8592; Back to results
+      <div>
+        <a className="text-decoration-none w-95">
+          <div className="back-to-homepage fit-content ms-3">
+            <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
+              &#8592; Back to results
             </h6>
-              <div className="line"></div>
-            </div>
+            <div className="line"></div>
           </div>
-          {this.checkDetailsStatus()}
-        </div>
-      )
+        </a>
+        {this.checkDetailsStatus()}
+      </div>
+    )
   }
 }
 

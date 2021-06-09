@@ -10,10 +10,10 @@ class Header extends Component {
     return (
       <header className="py-2 mb-3">
         <div className="d-flex justify-content-between header-text-sizing m-auto">
-          <div className="header-title d-flex cursor-pointer" onClick={() => this.props.backToHomepage()}>
-            <img className="logo mr-1" src="./images/trending_up-white-18dp.svg" alt=""/>
-            <h2 className="my-auto mobile-header-text">$tonk Reacts</h2>
-          </div>
+          <a className="header-title d-flex cursor-pointer text-decoration-none" onClick={() => this.props.backToHomepage()}>
+            <img className="logo mr-1" src="./images/trending_up_black_18dp.svg" alt=""/>
+            <h2 className="my-auto mobile-header-text text-dark">$tonk Reacts</h2>
+          </a>
         </div>
       </header>
     )

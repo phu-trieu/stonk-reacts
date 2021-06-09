@@ -86,14 +86,14 @@ class SearchResultList extends Component {
     }
     return (
       <div>
-        <div className="mx-auto mt-2 w-95">
-          <div className="back-to-homepage fit-content">
+        <a href="#" className="w-95 text-decoration-none">
+          <div className="back-to-homepage fit-content ms-3">
             <h6 className="cursor-pointer" onClick={() => this.props.backToHomepage()}>
               &#8592; Back to homepage
             </h6>
             <div className="line"></div>
           </div>
-        </div>
+        </a>
         {this.checkResults()}
       </div>
     )
