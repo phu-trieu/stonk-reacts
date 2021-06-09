@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
-
 * {
   font-family: 'Quantico', sans-serif;
   color: white;
   box-sizing: border-box;
-  margin:0;
+  margin: 0;
 }
 
 body {
@@ -23,11 +22,11 @@ header {
   background-color: #37C834;
 }
 
-.header-title > h2 {
+.header-title>h2 {
   transition: color 150ms ease-in-out;
 }
 
-.header-title:hover > h2 {
+.header-title:hover>h2 {
   color: rgb(207, 207, 207)
 }
 
@@ -58,10 +57,6 @@ header {
 
 .search-result-symbol {
   width: 80%;
-}
-
-.stock-ex-header {
-  width: initial;
 }
 
 .mobile-switch {
@@ -141,6 +136,13 @@ header {
   transition: width 200ms ease-in-out;
 }
 
+.symbol-grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(auto-fit, 250px);
+  justify-content: space-between;
+}
+
 @media all and (max-width: 750px) {
   .detail-text {
     font-size: 99%;
@@ -168,15 +170,6 @@ header {
 @media all and (min-width: 576px) and (max-width: 740px) {
   .stock-ex-header {
     width: 110%;
-  }
-}
-
-@media all and (max-width: 575px) {
-  .hr-mobile-switch {
-    display: none;
-  }
-  .mobile-switch {
-    display: none;
   }
 }
 
