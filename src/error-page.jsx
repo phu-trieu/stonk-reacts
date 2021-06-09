@@ -34,7 +34,7 @@ export class ErrorPage extends Component {
     }
 
   backToResultsOrHomepage() {
-    if (this.props.searchResults.length) {
+    if (this.props.searchResultsCopy.length) {
       return (
       <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
         &#8592; Back to results

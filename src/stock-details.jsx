@@ -85,8 +85,8 @@ class StockDetails extends Component {
     if (this.state.gifsArray[0]) {
       return (
         <div>
-          <div className="d-flex justify-content-between mt-3 mx-auto w-66">
-            <div>
+          <div className="symbol-grid mt-3 mx-auto w-95">
+            <div className="fit-content">
               <h1>{detailsEOD.symbol}</h1>
             </div>
             <div className="d-flex">
@@ -94,7 +94,7 @@ class StockDetails extends Component {
               <h1 className={this.trendColor()}>{this.getPrice()}</h1>
             </div>
           </div>
-          <div className="w-66 d-flex m-auto">
+          <div className="w-95 m-auto">
             <h3>{this.props.stockDetailsName}</h3>
           </div>
           <div className="d-flex justify-content-center my-5">
@@ -131,21 +131,19 @@ class StockDetails extends Component {
 
   render() {
     const detailsEOD = this.props.details[0];
-    if (!this.state.gifsArray[0] || !this.state.gifSpecifics.title) return <h1 className="text-center pt-5">Loading...</h1>
-
     return (
-      <div>
-        <div className="mx-auto mt-2 w-95">
-          <div className="back-to-homepage fit-content">
-            <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
-              &#8592; Back to results
+        <div>
+          <div className="mx-auto mt-2 w-95">
+            <div className="back-to-homepage fit-content">
+              <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
+                &#8592; Back to results
             </h6>
-            <div className="line"></div>
+              <div className="line"></div>
+            </div>
           </div>
+          {this.checkDetailsStatus()}
         </div>
-        {this.checkDetailsStatus()}
-      </div>
-    )
+      )
   }
 }
 

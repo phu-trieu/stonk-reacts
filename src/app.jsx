@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       homepageGif: {},
       searchResults: [],
+      searchResultsCopy: [],
       stockDetails: [],
       stockDetailsName: '',
       stockDetailsGif: null,
@@ -36,7 +37,7 @@ class App extends Component {
       })
   }
 
-  checkForData() {
+  checkForData(name) {
     if (this.state.stockDetails.length) {
       return this.setState({
         stockDetailsName: name
@@ -49,6 +50,10 @@ class App extends Component {
   }
 
   getStockDetails(symbol, name) {
+    this.setState({
+      searchResultsCopy: this.state.searchResults,
+      searchResults: []
+    })
     fetch(`https://api.marketstack.com/v1/eod?access_key=fb1fd1efa8b98380b5fee609590442a8&symbols=${symbol}&limit=10`)
       .then(res => res.json())
       .then(stock => {
@@ -57,7 +62,7 @@ class App extends Component {
         })
       })
       .then(() => {
-        this.checkForData();
+        this.checkForData(name);
       })
   }
 
@@ -66,6 +71,8 @@ class App extends Component {
     this.setState({
       stockDetails: [],
       stockDetailsName: '',
+      searchResults: this.state.searchResultsCopy,
+      searchResultsCopy: [],
       error: false
     })
   }
@@ -106,7 +113,7 @@ class App extends Component {
   }
 
   checkState() {
-    if (this.state.error) return <ErrorPage backToResults={this.backToResults} backToHomepage={this.backToHomepage} searchResults={this.state.searchResults} />
+    if (this.state.error) return <ErrorPage backToResults={this.backToResults} backToHomepage={this.backToHomepage} searchResultsCopy={this.state.searchResultsCopy}/>
     if (this.state.stockDetails.length) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
     if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.state.stockDetails} getStockDetails={this.getStockDetails} checkForData={this.checkForData} backToHomepage={this.backToHomepage} />
     if (Object.keys(this.state.homepageGif).length) {

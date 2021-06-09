@@ -53,7 +53,7 @@ class SearchResultList extends Component {
                 <h4 className="m-0 col-sm-8 d-flex align-items-center font-weight-bold">Company Name</h4>
               </div>
               <div>
-                <h4 className="m-auto font-weight-bold stock-ex-header">Stock Exchange</h4>
+                <h4 className="m-auto font-weight-bold text-end">Stock Exchange</h4>
               </div>
             </div>
           </div>
