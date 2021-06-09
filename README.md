@@ -7,7 +7,7 @@ https://stonkreacts.phutrieu.com
 * HTML5
 * CSS3
 * JavaScript (ES6)
-* Bootstrap 4
+* Bootstrap 5
 * Node.js
 * AWS EC2
 * Webpack 4
