@@ -7,8 +7,9 @@ export class ErrorPage extends Component {
       gifs: [],
       randomGif: ''
     }
-    }
+  }
 
+  // picks out gif randomly from gif array
   getRandomGif() {
     const gifs = this.state.gifs;
     const random = Number((Math.random() * (gifs.length - 1)).toFixed(0));
@@ -18,28 +19,29 @@ export class ErrorPage extends Component {
     })
   }
 
-    fetchGif() {
-      fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=error&limit=25&offset=0&rating=G&lang=en`)
-        .then(res => res.json())
-        .then(gifs => {
-          this.setState({
-            gifs: gifs.data
-          })
-          this.getRandomGif();
+  fetchGif() {
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=tumbleweed&limit=25&offset=0&rating=G&lang=en`)
+      .then(res => res.json())
+      .then(gifs => {
+        this.setState({
+          gifs: gifs.data
         })
-    }
+        this.getRandomGif();
+      })
+  }
 
-    componentDidMount() {
-      this.fetchGif();
-    }
+  componentDidMount() {
+    this.fetchGif();
+  }
 
   backToResultsOrHomepage() {
     if (this.props.searchResultsCopy.length) {
       return (
-      <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
-        &#8592; Back to results
-      </h6>
-      )}
+        <h6 className="cursor-pointer" onClick={() => this.props.backToResults()}>
+          &#8592; Back to results
+        </h6>
+      )
+    }
     return (
       <h6 className="cursor-pointer" onClick={() => this.props.backToHomepage()}>
         &#8592; Back to homepage

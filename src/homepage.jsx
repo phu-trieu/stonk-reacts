@@ -19,8 +19,8 @@ class Homepage extends Component {
   render() {
     const gif = this.props.gif;
     return (
-      <div className="">
-        <form action="" className="" onSubmit={() => this.props.formSubmit(this.state.searchQuery)}>
+      <div>
+        <form onSubmit={() => this.props.formSubmit(this.state.searchQuery)}>
           <div className="form-group d-flex flex-wrap justify-content-center pt-5">
             <div className="col-12 d-flex justify-content-center">
               <label htmlFor="search" className="label-size text-center">Search for a company</label>
