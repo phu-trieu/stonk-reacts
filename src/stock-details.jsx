@@ -14,7 +14,7 @@ class StockDetails extends Component {
     const details = this.props.details;
     const detailsEOD = this.props.details[0];
     const pctChange = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100);
-    //determines GIPHY search query based on stocks percent change for the day
+    /** determines GIPHY search query based on stocks percent change for the day */
     const gifSearchQuery = () => {
       if (details.length === 0) return 'error';
       if (pctChange === 0) return 'nothing happened';
@@ -51,7 +51,7 @@ class StockDetails extends Component {
     return (detailsEOD.close).toFixed(2);
   }
 
-  // determines if trend symbol is up, down, or flat
+  /** determines if trend symbol is up, down, or flat */
   setTrendSymbol() {
     const detailsEOD = this.props.details[0];
     if (!detailsEOD.open) return '/images/error-white-18dp.svg';
@@ -60,7 +60,7 @@ class StockDetails extends Component {
     if (detailsEOD.close > detailsEOD.open) return 'images/trending_up-white-18dp.svg';
   }
 
-  // determines if stock price should be red or green based on stocks performance
+  /** determines if stock price should be red or green based on stocks performance */
   setTrendColor() {
     const detailsEOD = this.props.details[0];
     if (!detailsEOD.open) return 'ml-1 text-warning';
@@ -103,7 +103,7 @@ class StockDetails extends Component {
             <img className="stonks-gif" src={this.state.randomGif} title={this.state.gifSpecifics.title} alt={this.state.gifSpecifics.title} />
           </div>
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
-            <div className="w-95 m-auto">
+            <div className="d-grid justify-content-center w-95 m-auto">
               <div>
                 <h4 className="detail-text">Price Open: {priceOpen}</h4>
               </div>
@@ -114,7 +114,7 @@ class StockDetails extends Component {
                 <h4 className="detail-text">Day Low: {dayLow}</h4>
               </div>
             </div>
-            <div className="w-95 m-auto">
+            <div className="d-grid justify-content-center w-95 m-auto">
               <div className="text-right">
                 <h4 className="detail-text">Day Change: {dayChange}</h4>
               </div>

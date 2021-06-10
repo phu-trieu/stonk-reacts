@@ -36,7 +36,7 @@ class App extends Component {
       })
   }
 
-  // checks if fetch request returned any data
+  /** checks if fetch request returned any data */
   checkForData(name) {
     if (this.state.stockDetails.length) {
       return this.setState({
