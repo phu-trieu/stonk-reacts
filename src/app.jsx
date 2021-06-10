@@ -17,7 +17,6 @@ class App extends Component {
       searchResultsCopy: [],
       stockDetails: [],
       stockDetailsName: '',
-      stockDetailsGif: null,
       error: false
     }
     this.formSubmit = this.formSubmit.bind(this);
@@ -37,6 +36,7 @@ class App extends Component {
       })
   }
 
+  // checks if fetch request returned any data
   checkForData(name) {
     if (this.state.stockDetails.length) {
       return this.setState({

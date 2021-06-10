@@ -14,6 +14,7 @@ class StockDetails extends Component {
     const details = this.props.details;
     const detailsEOD = this.props.details[0];
     const pctChange = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100);
+    //determines GIPHY search query based on stocks percent change for the day
     const gifSearchQuery = () => {
       if (details.length === 0) return 'error';
       if (pctChange === 0) return 'nothing happened';
@@ -50,7 +51,8 @@ class StockDetails extends Component {
     return (detailsEOD.close).toFixed(2);
   }
 
-  trendSymbol() {
+  // determines if trend symbol is up, down, or flat
+  setTrendSymbol() {
     const detailsEOD = this.props.details[0];
     if (!detailsEOD.open) return '/images/error-white-18dp.svg';
     if (detailsEOD.close === detailsEOD.open) return '/images/trending_flat-white-18dp.svg';
@@ -58,7 +60,8 @@ class StockDetails extends Component {
     if (detailsEOD.close > detailsEOD.open) return 'images/trending_up-white-18dp.svg';
   }
 
-  trendColor() {
+  // determines if stock price should be red or green based on stocks performance
+  setTrendColor() {
     const detailsEOD = this.props.details[0];
     if (!detailsEOD.open) return 'ml-1 text-warning';
     if (detailsEOD.close === detailsEOD.open) return 'ml-1 text-white';
@@ -70,19 +73,18 @@ class StockDetails extends Component {
     const details = this.props.details;
     const detailsEOD = this.props.details[0];
 
-    const priceOpen = () => (detailsEOD.open ? detailsEOD.open.toFixed(2) : '');
+    const priceOpen = detailsEOD.open.toFixed(2) || '';
 
-    const dayHigh = () => (detailsEOD.high ? (detailsEOD.high).toFixed(2) : '');
+    const dayHigh = detailsEOD.high.toFixed(2) || '';
 
-    const dayLow = () => (detailsEOD.low ? (detailsEOD.low).toFixed(2) : '');;
+    const dayLow = (detailsEOD.low).toFixed(2) || '';
 
-    const volume = () => (detailsEOD.volume ? (detailsEOD.volume) : '');
+    const volume = (detailsEOD.volume) || '';
 
-    const dayChange = () => (detailsEOD.open ? (detailsEOD.close - detailsEOD.open).toFixed(2) : '');
+    const dayChange = (detailsEOD.close - detailsEOD.open).toFixed(2) || '';
 
-    const changePct = () => (detailsEOD.open ? (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100).toFixed(2) : '');
+    const changePct = (((detailsEOD.close - detailsEOD.open) / Math.abs(detailsEOD.open)) * 100).toFixed(2) || '';
 
-    if (this.state.gifsArray[0]) {
       return (
         <div>
           <div className="symbol-grid mt-3 mx-auto w-95">
@@ -90,8 +92,8 @@ class StockDetails extends Component {
               <h1>{detailsEOD.symbol}</h1>
             </div>
             <div className="d-flex">
-              <img src={this.trendSymbol()} alt="" className="menu" />
-              <h1 className={this.trendColor()}>{this.getPrice()}</h1>
+              <img src={this.setTrendSymbol()} alt="" className="menu" />
+              <h1 className={this.setTrendColor()}>{this.getPrice()}</h1>
             </div>
           </div>
           <div className="w-95 m-auto">
@@ -103,30 +105,29 @@ class StockDetails extends Component {
           <div className="d-flex justify-content-between w-66 mx-auto mb-3">
             <div className="w-95 m-auto">
               <div>
-                <h4 className="detail-text">Price Open: {priceOpen()}</h4>
+                <h4 className="detail-text">Price Open: {priceOpen}</h4>
               </div>
               <div>
-                <h4 className="detail-text">Day High: {dayHigh()}</h4>
+                <h4 className="detail-text">Day High: {dayHigh}</h4>
               </div>
               <div>
-                <h4 className="detail-text">Day Low: {dayLow()}</h4>
+                <h4 className="detail-text">Day Low: {dayLow}</h4>
               </div>
             </div>
             <div className="w-95 m-auto">
               <div className="text-right">
-                <h4 className="detail-text">Day Change: {dayChange()}</h4>
+                <h4 className="detail-text">Day Change: {dayChange}</h4>
               </div>
               <div className="text-right">
-                <h4 className="detail-text">Change %: {changePct()}</h4>
+                <h4 className="detail-text">Change %: {changePct}</h4>
               </div>
               <div className="text-right">
-                <h4 className="detail-text">Volume: {volume()}</h4>
+                <h4 className="detail-text">Volume: {volume}</h4>
               </div>
             </div>
           </div>
         </div>
       )
-    }
   }
 
   render() {

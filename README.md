@@ -1,5 +1,5 @@
 # Stonk Reacts
-A hackathon project utilizing the data from the GIPHY and MarketStack APIs to provide a GIF reaction based on a stock's intraday performance.
+A hackathon project utilizing the data from the GIPHY and MarketStack APIs to provide a GIF reaction based on a stocks intraday performance.
 https://stonkreacts.phutrieu.com
 
 **Technologies**
@@ -16,7 +16,7 @@ https://stonkreacts.phutrieu.com
 * User can search for a company.
 * User can view a list of search results.
 * User can view stock details from a certain company.
-* When viewing stock details, user can also view a GIF reaction based on the stock's intraday performance.
+* When viewing stock details, user can also view a GIF reaction based on the stocks intraday performance.
 
 **Previews**
 
@@ -36,11 +36,11 @@ https://stonkreacts.phutrieu.com
 **Getting Started**
 1. Clone the repository.
 ```shell
-git clone https://github.com/phutrieu95/api-hackathon
+git clone https://github.com/phu-trieu/stonk-reacts
 ```
 2. Navigate to the directory.
 ```shell
-cd api-hackathon
+cd stonk-reacts
 ```
 3. Install all dependencies needed.
 ```shell
@@ -48,5 +48,5 @@ npm install
 ```
 4. Start the project. Once your system finishes compiling, you can view the application by opening http://localhost:8080 in your browser.
 ```shell
-npm run start:dev
+npm run start
 ```
