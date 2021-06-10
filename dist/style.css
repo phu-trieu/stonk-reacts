@@ -46,7 +46,8 @@ header {
 }
 
 .stonks-gif {
-  max-height: 500px;
+  max-height: 700px;
+  object-fit: contain;
 }
 
 .w-95 {

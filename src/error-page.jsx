@@ -9,7 +9,7 @@ export class ErrorPage extends Component {
     }
   }
 
-  // picks out gif randomly from gif array
+  /** picks out gif randomly from gif array */
   getRandomGif() {
     const gifs = this.state.gifs;
     const random = Number((Math.random() * (gifs.length - 1)).toFixed(0));
