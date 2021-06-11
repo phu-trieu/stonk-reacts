@@ -20,7 +20,11 @@ export class ErrorPage extends Component {
   }
 
   fetchGif() {
-    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=tumbleweed&limit=25&offset=0&rating=G&lang=en`)
+    const checkErrorType = () => {
+      if (this.props.internetDown) return;
+      if (this.props.noDataFound) return 'tumbleweed';
+    }
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Ef4JyI8sRzmss507iqcCYLHVE3MMkM6A&q=${checkErrorType()}&limit=25&offset=0&rating=G&lang=en`)
       .then(res => res.json())
       .then(gifs => {
         this.setState({
@@ -50,13 +54,17 @@ export class ErrorPage extends Component {
   }
 
   render() {
+    const checkErrorType = () => {
+      if (this.props.internetDown) return 'Connection was lost :(';
+      if (this.props.noDataFound) return 'No data was found :(';
+    }
     return (
       <div className="mx-auto mt-2 w-95">
         <div className="back-to-homepage fit-content">
           {this.backToResultsOrHomepage()}
           <div className="line" />
         </div>
-        <h1 className="text-center pt-5">No data was found :&#40;</h1>
+        <h1 className="text-center pt-5">{checkErrorType()}</h1>
         <div className="d-flex justify-content-center my-5">
           <img className="stonks-gif" src={this.state.randomGif} alt="" />
         </div>
