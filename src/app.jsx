@@ -17,7 +17,8 @@ class App extends Component {
       searchResultsCopy: [],
       stockDetails: [],
       stockDetailsName: '',
-      error: false
+      noDataFound: false,
+      internetDown: false
     }
     this.formSubmit = this.formSubmit.bind(this);
     this.getStockDetails = this.getStockDetails.bind(this);
@@ -44,7 +45,7 @@ class App extends Component {
       })
     } else {
       return this.setState({
-        error: true
+        noDataFound: true
       })
     }
   }
@@ -73,7 +74,7 @@ class App extends Component {
       stockDetailsName: '',
       searchResults: this.state.searchResultsCopy,
       searchResultsCopy: [],
-      error: false
+      noDataFound: false
     })
   }
 
@@ -89,7 +90,8 @@ class App extends Component {
       },
       searchResults: [],
       stockDetailsName: '',
-      error: false
+      noDataFound: false,
+      internetDown: false
     })
   }
 
@@ -106,14 +108,19 @@ class App extends Component {
         })
         if (!this.state.searchResults.length) {
           this.setState({
-            error: true
+            noDataFound: true
           })
         }
+      })
+      .catch(err => {
+        this.setState({
+          internetDown: true
+        })
       })
   }
 
   checkState() {
-    if (this.state.error) return <ErrorPage backToResults={this.backToResults} backToHomepage={this.backToHomepage} searchResultsCopy={this.state.searchResultsCopy}/>
+    if (this.state.internetDown || this.state.noDataFound) return <ErrorPage internetDown={this.state.internetDown} noDataFound={this.state.noDataFound} backToResults={this.backToResults} backToHomepage={this.backToHomepage} searchResultsCopy={this.state.searchResultsCopy}/>
     if (this.state.stockDetails.length) return <StockDetails details={this.state.stockDetails} stockDetailsName={this.state.stockDetailsName} backToResults={this.backToResults} />
     if (this.state.searchResults.length) return <SearchResultList searchResults={this.state.searchResults} stockDetails={this.state.stockDetails} getStockDetails={this.getStockDetails} checkForData={this.checkForData} backToHomepage={this.backToHomepage} />
     if (Object.keys(this.state.homepageGif).length) {
