@@ -35,6 +35,9 @@ class App extends Component {
           homepageGif: data
         })
       })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   /** checks if fetch request returned any data */
@@ -65,6 +68,9 @@ class App extends Component {
       .then(() => {
         this.checkForData(name);
       })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
 
