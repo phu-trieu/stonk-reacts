@@ -33,6 +33,9 @@ class StockDetails extends Component {
         })
         this.getRandomGif();
       })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   getRandomGif() {

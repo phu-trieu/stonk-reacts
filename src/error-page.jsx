@@ -32,6 +32,9 @@ export class ErrorPage extends Component {
         })
         this.getRandomGif();
       })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   componentDidMount() {
